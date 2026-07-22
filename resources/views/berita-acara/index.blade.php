@@ -3,9 +3,9 @@
 @section('title', 'Berita Acara')
 
 @section('content')
-<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
     <p class="uppercase tracking-[0.2em] text-gold-600 text-xs font-medium mb-3">Dokumentasi</p>
-    <h1 class="font-display text-3xl font-semibold text-emerald-950 mb-2">Berita Acara</h1>
+    <h1 class="font-display text-2xl sm:text-3xl font-semibold text-emerald-950 mb-2">Berita Acara</h1>
     <p class="text-emerald-900/50 mb-8">Dokumentasi kegiatan dan berita acara resmi Desa Tanjung Agung.</p>
 
     @if ($beritaAcara->isEmpty())

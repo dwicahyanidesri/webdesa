@@ -9,26 +9,26 @@
     @endphp
 
     <!-- Hero -->
-    <section class="relative bg-hero-image min-h-[600px] flex items-end" style="background-image: url('{{ $heroImage }}');">
+    <section class="relative bg-hero-image min-h-[460px] sm:min-h-[560px] lg:min-h-[600px] flex items-end" style="background-image: url('{{ $heroImage }}');">
         <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/70 to-emerald-950/20"></div>
-        <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-16 w-full">
-            <p class="inline-flex items-center gap-2 uppercase tracking-[0.2em] text-gold-400 text-xs font-medium mb-4">
+        <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 lg:pt-40 pb-10 sm:pb-16 w-full">
+            <p class="inline-flex items-center gap-2 uppercase tracking-[0.2em] text-gold-400 text-[11px] sm:text-xs font-medium mb-3 sm:mb-4">
                 <span class="h-px w-8 bg-gold-400"></span>
                 Website Resmi Pemerintah Desa
             </p>
-            <h1 class="font-display text-4xl md:text-6xl font-semibold text-cream-50 text-shadow-sm mb-4 max-w-2xl">
+            <h1 class="font-display text-3xl sm:text-4xl md:text-6xl font-semibold text-cream-50 text-shadow-sm mb-3 sm:mb-4 max-w-2xl">
                 Desa {{ $profil->nama_desa ?? 'Tanjung Agung' }}
             </h1>
-            <p class="max-w-xl text-cream-100/90 text-base md:text-lg mb-8">
+            <p class="max-w-xl text-cream-100/90 text-sm sm:text-base md:text-lg mb-6 sm:mb-8">
                 {{ $profil->kecamatan ?? '' }}{{ $profil->kabupaten ? ', '.$profil->kabupaten : '' }}{{ $profil->provinsi ? ', '.$profil->provinsi : '' }}
             </p>
-            <div class="flex flex-wrap gap-3">
-                <a href="#profil" class="rounded-full bg-cream-50 text-emerald-900 px-6 py-3 font-medium hover:bg-cream-100 transition">Jelajahi Profil Desa</a>
-                <a href="{{ route('program-kerja.index') }}" class="rounded-full border border-cream-50/50 text-cream-50 px-6 py-3 font-medium hover:bg-cream-50/10 transition">Program Kerja KKN</a>
+            <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+                <a href="#profil" class="rounded-full bg-cream-50 text-emerald-900 px-6 py-3 font-medium text-center hover:bg-cream-100 transition">Jelajahi Profil Desa</a>
+                <a href="{{ route('program-kerja.index') }}" class="rounded-full border border-cream-50/50 text-cream-50 px-6 py-3 font-medium text-center hover:bg-cream-50/10 transition">Program Kerja KKN</a>
             </div>
 
             @if ($profil && ($profil->luas_wilayah || $profil->jumlah_penduduk))
-                <div class="mt-14 grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-xl">
+                <div class="mt-8 sm:mt-14 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 max-w-xl">
                     @if ($profil->jumlah_penduduk)
                         <div class="rounded-2xl bg-cream-50/10 backdrop-blur-sm border border-cream-50/20 px-5 py-4">
                             <p class="text-2xl font-display font-semibold text-gold-400">{{ $profil->jumlah_penduduk }}</p>
@@ -51,7 +51,7 @@
     </section>
 
     <!-- Profil Desa -->
-    <section id="profil" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-20">
+    <section id="profil" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 scroll-mt-20">
         <div class="max-w-xl mb-10">
             <p class="uppercase tracking-[0.2em] text-gold-600 text-xs font-medium mb-3">Profil Desa</p>
             <h2 class="font-display text-3xl font-semibold text-emerald-950 mb-3">Sejarah, Visi &amp; Misi</h2>
@@ -60,16 +60,16 @@
 
         <div class="grid lg:grid-cols-3 gap-8">
             <div class="lg:col-span-2 space-y-5">
-                <div class="bg-white rounded-2xl border border-emerald-900/10 p-7">
+                <div class="bg-white rounded-2xl border border-emerald-900/10 p-5 sm:p-7">
                     <h3 class="font-display font-semibold text-lg text-emerald-950 mb-3">Sejarah Desa</h3>
                     <p class="text-emerald-900/70 leading-relaxed whitespace-pre-line">{{ $profil->sejarah ?? '-' }}</p>
                 </div>
                 <div class="grid sm:grid-cols-2 gap-5">
-                    <div class="bg-emerald-900 rounded-2xl p-7 text-cream-100">
+                    <div class="bg-emerald-900 rounded-2xl p-5 sm:p-7 text-cream-100">
                         <h3 class="font-display font-semibold text-lg text-cream-50 mb-2">Visi</h3>
                         <p class="text-cream-100/80 leading-relaxed text-sm">{{ $profil->visi ?? '-' }}</p>
                     </div>
-                    <div class="bg-white rounded-2xl border border-emerald-900/10 p-7">
+                    <div class="bg-white rounded-2xl border border-emerald-900/10 p-5 sm:p-7">
                         <h3 class="font-display font-semibold text-lg text-emerald-950 mb-2">Misi</h3>
                         <p class="text-emerald-900/70 leading-relaxed whitespace-pre-line text-sm">{{ $profil->misi ?? '-' }}</p>
                     </div>
@@ -106,7 +106,7 @@
 
     <!-- Potensi Desa -->
     <section id="potensi" class="bg-cream-100 scroll-mt-20">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
             <div class="max-w-xl mb-10">
                 <p class="uppercase tracking-[0.2em] text-gold-600 text-xs font-medium mb-3">Unggulan</p>
                 <h2 class="font-display text-3xl font-semibold text-emerald-950 mb-3">Potensi Desa</h2>
@@ -141,8 +141,8 @@
     </section>
 
     <!-- Pemerintahan Desa -->
-    <section id="pemerintahan" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-20">
-        <div class="max-w-xl mb-14">
+    <section id="pemerintahan" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 scroll-mt-20">
+        <div class="max-w-xl mb-10 sm:mb-14">
             <p class="uppercase tracking-[0.2em] text-gold-600 text-xs font-medium mb-3">Struktur Organisasi</p>
             <h2 class="font-display text-3xl font-semibold text-emerald-950 mb-3">Pemerintahan Desa</h2>
             <p class="text-emerald-900/60">Bagan susunan perangkat Desa Tanjung Agung.</p>
@@ -183,7 +183,7 @@
 
     <!-- Kontak -->
     <section id="kontak" class="bg-emerald-950 text-white scroll-mt-20">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
             <div class="max-w-xl mb-12">
                 <p class="uppercase tracking-[0.2em] text-gold-400 text-xs font-medium mb-3">Hubungi Kami</p>
                 <h2 class="font-display text-3xl font-semibold text-cream-50 mb-3">Kontak Person</h2>

@@ -3,9 +3,9 @@
 @section('title', 'Program Kerja KKN')
 
 @section('content')
-<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
     <p class="uppercase tracking-[0.2em] text-gold-600 text-xs font-medium mb-3">Kuliah Kerja Nyata</p>
-    <h1 class="font-display text-3xl font-semibold text-emerald-950 mb-2">Program Kerja Mahasiswa KKN</h1>
+    <h1 class="font-display text-2xl sm:text-3xl font-semibold text-emerald-950 mb-2">Program Kerja Mahasiswa KKN</h1>
     <p class="text-emerald-900/50 mb-8">Klik salah satu program untuk melihat detail lengkapnya.</p>
 
     @if ($programKerja->isEmpty())

@@ -11,12 +11,12 @@
 
     <header class="bg-cream-50/90 backdrop-blur-md border-b border-emerald-900/10 sticky top-0 z-40" x-data="{ open: false }">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <a href="{{ route('home') }}" class="flex items-center gap-3 font-display font-semibold text-emerald-900">
-                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-700 text-cream-50 text-sm">TA</span>
-                    <span class="leading-tight">
-                        <span class="block text-base">Desa Tanjung Agung</span>
-                        <span class="block text-[11px] font-sans font-normal tracking-wide text-emerald-700/70">Website Resmi Pemerintah Desa</span>
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                <a href="{{ route('home') }}" class="flex items-center gap-2.5 sm:gap-3 font-display font-semibold text-emerald-900 min-w-0">
+                    <span class="inline-flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-emerald-700 text-cream-50 text-sm">TA</span>
+                    <span class="leading-tight min-w-0 truncate">
+                        <span class="block text-sm sm:text-base truncate">Desa Tanjung Agung</span>
+                        <span class="hidden sm:block text-[11px] font-sans font-normal tracking-wide text-emerald-700/70">Website Resmi Pemerintah Desa</span>
                     </span>
                 </a>
 
@@ -70,7 +70,7 @@
     </main>
 
     <footer class="bg-emerald-950 text-cream-200 mt-16">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid sm:grid-cols-3 gap-8 text-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 grid sm:grid-cols-3 gap-8 text-sm">
             <div>
                 <div class="flex items-center gap-2 font-display text-cream-50 mb-3">
                     <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-700 text-cream-50 text-xs">TA</span>

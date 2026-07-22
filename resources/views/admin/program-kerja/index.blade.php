@@ -3,7 +3,7 @@
 @section('title', 'Program Kerja KKN')
 
 @section('content')
-<div class="flex items-center justify-between mb-6">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
     <p class="text-sm text-emerald-900/50">Kelola daftar program kerja mahasiswa KKN.</p>
     <a href="{{ route('admin.program-kerja.create') }}" class="rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 text-sm font-medium">+ Tambah Program</a>
 </div>

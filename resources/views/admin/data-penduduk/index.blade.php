@@ -12,28 +12,79 @@
     @endif
 
     <!-- Kartu ringkasan utama -->
-    <div class="grid sm:grid-cols-3 gap-4">
-        <div class="rounded-2xl bg-emerald-950 px-6 py-5">
-            <p class="text-3xl font-display font-semibold text-gold-400" x-text="fmt(stats?.jumlah_anak)">0</p>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="rounded-2xl bg-emerald-950 px-4 py-4 sm:px-6 sm:py-5">
+            <p class="text-2xl sm:text-3xl font-display font-semibold text-gold-400" x-text="fmt(stats?.jumlah_anak)">0</p>
             <p class="text-xs uppercase tracking-wide text-cream-200/60 mt-1">Jumlah Anak</p>
         </div>
-        <div class="rounded-2xl bg-emerald-950 px-6 py-5">
-            <p class="text-3xl font-display font-semibold text-gold-400" x-text="fmt(stats?.jumlah_ibu_rumah_tangga)">0</p>
+        <div class="rounded-2xl bg-emerald-950 px-4 py-4 sm:px-6 sm:py-5">
+            <p class="text-2xl sm:text-3xl font-display font-semibold text-gold-400" x-text="fmt(stats?.jumlah_ibu_rumah_tangga)">0</p>
             <p class="text-xs uppercase tracking-wide text-cream-200/60 mt-1">Jumlah Ibu Rumah Tangga</p>
         </div>
-        <div class="rounded-2xl bg-emerald-950 px-6 py-5">
-            <p class="text-3xl font-display font-semibold text-gold-400" x-text="fmt(stats?.jumlah_kepala_keluarga)">0</p>
+        <div class="rounded-2xl bg-emerald-950 px-4 py-4 sm:px-6 sm:py-5">
+            <p class="text-2xl sm:text-3xl font-display font-semibold text-gold-400" x-text="fmt(stats?.jumlah_kepala_keluarga)">0</p>
             <p class="text-xs uppercase tracking-wide text-cream-200/60 mt-1">Jumlah Kepala Keluarga</p>
         </div>
     </div>
 
-    <div class="grid lg:grid-cols-12 gap-5">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+        <!-- Kolom kanan (desktop) / atas (mobile): filter -->
+        <div class="order-1 lg:order-3 lg:col-span-3">
+            <div class="rounded-2xl bg-emerald-950 text-cream-100 p-4 sm:p-5 lg:sticky lg:top-20">
+                <h2 class="font-display font-semibold text-gold-400 mb-5">Filter Data</h2>
+
+                <div class="mb-6">
+                    <p class="text-[11px] uppercase tracking-widest text-cream-200/40 mb-2">Rukun Tetangga (RT)</p>
+                    <div class="flex flex-wrap gap-1.5">
+                        <button type="button" @click="setFilter('rt', 'semua')"
+                                :class="filters.rt === 'semua' ? 'bg-emerald-600 text-cream-50' : 'bg-cream-50/5 text-cream-200/70 hover:bg-cream-50/10'"
+                                class="rounded-lg px-3 py-1.5 text-xs transition-colors cursor-pointer">Semua RT</button>
+                        @foreach ($rtList as $rt)
+                            <button type="button" @click="setFilter('rt', '{{ $rt }}')"
+                                    :class="filters.rt === '{{ $rt }}' ? 'bg-emerald-600 text-cream-50' : 'bg-cream-50/5 text-cream-200/70 hover:bg-cream-50/10'"
+                                    class="rounded-lg px-3 py-1.5 text-xs transition-colors cursor-pointer">{{ $rt }}</button>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <p class="text-[11px] uppercase tracking-widest text-cream-200/40 mb-2">Pilih Dusun</p>
+                    <div class="space-y-1">
+                        <button type="button" @click="setFilter('dusun', 'semua')"
+                                :class="filters.dusun === 'semua' ? 'bg-emerald-600 text-cream-50' : 'text-cream-200/70 hover:bg-cream-50/5'"
+                                class="w-full text-left rounded-lg px-3 py-1.5 text-xs transition-colors cursor-pointer">Semua Dusun</button>
+                        @foreach ($dusunList as $dusun)
+                            <button type="button" @click="setFilter('dusun', '{{ $dusun }}')"
+                                    :class="filters.dusun === '{{ $dusun }}' ? 'bg-emerald-600 text-cream-50' : 'text-cream-200/70 hover:bg-cream-50/5'"
+                                    class="w-full text-left rounded-lg px-3 py-1.5 text-xs transition-colors cursor-pointer">{{ $dusun }}</button>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div>
+                    <p class="text-[11px] uppercase tracking-widest text-cream-200/40 mb-2">Pendidikan Terakhir</p>
+                    <div class="space-y-1">
+                        <button type="button" @click="setFilter('pendidikan', 'semua')"
+                                :class="filters.pendidikan === 'semua' ? 'bg-emerald-600 text-cream-50' : 'text-cream-200/70 hover:bg-cream-50/5'"
+                                class="w-full text-left rounded-lg px-3 py-1.5 text-xs transition-colors cursor-pointer">Semua Tingkat</button>
+                        @foreach ($pendidikanList as $key => $label)
+                            <button type="button" @click="setFilter('pendidikan', '{{ $key }}')"
+                                    :class="filters.pendidikan === '{{ $key }}' ? 'bg-emerald-600 text-cream-50' : 'text-cream-200/70 hover:bg-cream-50/5'"
+                                    class="w-full text-left rounded-lg px-3 py-1.5 text-xs transition-colors cursor-pointer">{{ $label }}</button>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div x-show="loading" x-cloak class="mt-6 text-xs text-cream-200/50">Memuat data&hellip;</div>
+            </div>
+        </div>
 
         <!-- Kolom kiri: sebaran per dusun -->
-        <div class="lg:col-span-3">
-            <div class="rounded-2xl bg-white border border-emerald-900/10 p-5 h-full flex flex-col">
+        <div class="order-2 lg:order-1 lg:col-span-3">
+            <div class="rounded-2xl bg-white border border-emerald-900/10 p-4 sm:p-5 h-full flex flex-col">
                 <h2 class="font-display font-semibold text-emerald-950 mb-4">Jumlah Penduduk Sesuai Dusun</h2>
-                <div class="flex-1 min-h-[280px]">
+                <div class="relative h-64 sm:h-72">
                     <canvas id="chartDusun"></canvas>
                 </div>
                 <div class="mt-4 pt-4 border-t border-emerald-900/10 text-right">
@@ -44,8 +95,8 @@
         </div>
 
         <!-- Kolom tengah: statistik & chart -->
-        <div class="lg:col-span-6 space-y-5">
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="order-3 lg:order-2 lg:col-span-6 space-y-5">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                 <div class="rounded-2xl bg-white border border-emerald-900/10 px-4 py-3">
                     <p class="text-xs text-emerald-900/50">Total</p>
                     <p class="text-xl font-display font-semibold text-emerald-950" x-text="fmt(stats?.total)">0</p>
@@ -70,80 +121,39 @@
             </div>
 
             <div class="grid sm:grid-cols-2 gap-5">
-                <div class="rounded-2xl bg-white border border-emerald-900/10 p-5">
+                <div class="rounded-2xl bg-white border border-emerald-900/10 p-4 sm:p-5">
                     <h3 class="font-display font-semibold text-sm text-emerald-950 mb-3">Usia &amp; Jenis Kelamin</h3>
-                    <canvas id="chartUsia" height="200"></canvas>
+                    <div class="relative h-64 sm:h-72">
+                        <canvas id="chartUsia"></canvas>
+                    </div>
                 </div>
-                <div class="rounded-2xl bg-white border border-emerald-900/10 p-5">
+                <div class="rounded-2xl bg-white border border-emerald-900/10 p-4 sm:p-5">
                     <h3 class="font-display font-semibold text-sm text-emerald-950 mb-3">Status Ekonomi</h3>
-                    <canvas id="chartEkonomi" height="200"></canvas>
+                    <div class="relative h-64 sm:h-72">
+                        <canvas id="chartEkonomi"></canvas>
+                    </div>
                 </div>
             </div>
 
             <div class="grid sm:grid-cols-3 gap-5">
-                <div class="rounded-2xl bg-white border border-emerald-900/10 p-5">
+                <div class="rounded-2xl bg-white border border-emerald-900/10 p-4 sm:p-5">
                     <h3 class="font-display font-semibold text-sm text-emerald-950 mb-3">Penerima Bantuan</h3>
-                    <canvas id="chartBantuan" height="220"></canvas>
+                    <div class="relative h-56">
+                        <canvas id="chartBantuan"></canvas>
+                    </div>
                 </div>
-                <div class="rounded-2xl bg-white border border-emerald-900/10 p-5">
+                <div class="rounded-2xl bg-white border border-emerald-900/10 p-4 sm:p-5">
                     <h3 class="font-display font-semibold text-sm text-emerald-950 mb-3">Status Nikah</h3>
-                    <canvas id="chartNikah" height="220"></canvas>
+                    <div class="relative h-56">
+                        <canvas id="chartNikah"></canvas>
+                    </div>
                 </div>
-                <div class="rounded-2xl bg-white border border-emerald-900/10 p-5">
+                <div class="rounded-2xl bg-white border border-emerald-900/10 p-4 sm:p-5">
                     <h3 class="font-display font-semibold text-sm text-emerald-950 mb-3">Pendidikan</h3>
-                    <canvas id="chartPendidikan" height="220"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Kolom kanan: filter -->
-        <div class="lg:col-span-3">
-            <div class="rounded-2xl bg-emerald-950 text-cream-100 p-5 lg:sticky lg:top-20">
-                <h2 class="font-display font-semibold text-gold-400 mb-5">Filter Data</h2>
-
-                <div class="mb-6">
-                    <p class="text-[11px] uppercase tracking-widest text-cream-200/40 mb-2">Rukun Tetangga (RT)</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <button type="button" @click="setFilter('rt', 'semua')"
-                                :class="filters.rt === 'semua' ? 'bg-emerald-600 text-cream-50' : 'bg-cream-50/5 text-cream-200/70 hover:bg-cream-50/10'"
-                                class="rounded-lg px-3 py-1.5 text-xs transition">Semua RT</button>
-                        @foreach ($rtList as $rt)
-                            <button type="button" @click="setFilter('rt', '{{ $rt }}')"
-                                    :class="filters.rt === '{{ $rt }}' ? 'bg-emerald-600 text-cream-50' : 'bg-cream-50/5 text-cream-200/70 hover:bg-cream-50/10'"
-                                    class="rounded-lg px-3 py-1.5 text-xs transition">{{ $rt }}</button>
-                        @endforeach
+                    <div class="relative h-56">
+                        <canvas id="chartPendidikan"></canvas>
                     </div>
                 </div>
-
-                <div class="mb-6">
-                    <p class="text-[11px] uppercase tracking-widest text-cream-200/40 mb-2">Pilih Dusun</p>
-                    <div class="space-y-1">
-                        <button type="button" @click="setFilter('dusun', 'semua')"
-                                :class="filters.dusun === 'semua' ? 'bg-emerald-600 text-cream-50' : 'text-cream-200/70 hover:bg-cream-50/5'"
-                                class="w-full text-left rounded-lg px-3 py-1.5 text-xs transition">Semua Dusun</button>
-                        @foreach ($dusunList as $dusun)
-                            <button type="button" @click="setFilter('dusun', '{{ $dusun }}')"
-                                    :class="filters.dusun === '{{ $dusun }}' ? 'bg-emerald-600 text-cream-50' : 'text-cream-200/70 hover:bg-cream-50/5'"
-                                    class="w-full text-left rounded-lg px-3 py-1.5 text-xs transition">{{ $dusun }}</button>
-                        @endforeach
-                    </div>
-                </div>
-
-                <div>
-                    <p class="text-[11px] uppercase tracking-widest text-cream-200/40 mb-2">Pendidikan Terakhir</p>
-                    <div class="space-y-1">
-                        <button type="button" @click="setFilter('pendidikan', 'semua')"
-                                :class="filters.pendidikan === 'semua' ? 'bg-emerald-600 text-cream-50' : 'text-cream-200/70 hover:bg-cream-50/5'"
-                                class="w-full text-left rounded-lg px-3 py-1.5 text-xs transition">Semua Tingkat</button>
-                        @foreach ($pendidikanList as $key => $label)
-                            <button type="button" @click="setFilter('pendidikan', '{{ $key }}')"
-                                    :class="filters.pendidikan === '{{ $key }}' ? 'bg-emerald-600 text-cream-50' : 'text-cream-200/70 hover:bg-cream-50/5'"
-                                    class="w-full text-left rounded-lg px-3 py-1.5 text-xs transition">{{ $label }}</button>
-                        @endforeach
-                    </div>
-                </div>
-
-                <div x-show="loading" x-cloak class="mt-6 text-xs text-cream-200/50">Memuat data&hellip;</div>
             </div>
         </div>
     </div>
@@ -203,13 +213,18 @@
                     type: 'bar',
                     data: {
                         labels: s.per_dusun.map(d => d.label),
-                        datasets: [{ data: s.per_dusun.map(d => d.total), backgroundColor: p.emerald, borderRadius: 6 }],
+                        datasets: [{ data: s.per_dusun.map(d => d.total), backgroundColor: p.emerald, borderRadius: 6, hoverBackgroundColor: p.gold }],
                     },
                     options: {
                         indexAxis: 'y',
-                        plugins: { legend: { display: false } },
-                        scales: { x: { beginAtZero: true, ticks: { precision: 0 } } },
+                        responsive: true,
                         maintainAspectRatio: false,
+                        interaction: { mode: 'nearest', axis: 'y', intersect: false },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { callbacks: { label: (ctx) => `${ctx.parsed.x} orang` } },
+                        },
+                        scales: { x: { beginAtZero: true, ticks: { precision: 0 } } },
                     },
                 });
 
@@ -223,8 +238,15 @@
                         ],
                     },
                     options: {
-                        plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } },
-                        scales: { x: { stacked: true }, y: { stacked: true, ticks: { precision: 0 } } },
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: { mode: 'nearest', axis: 'y', intersect: false },
+                        plugins: {
+                            legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } },
+                            tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.x} orang` } },
+                        },
+                        scales: { x: { stacked: true, ticks: { precision: 0 } }, y: { stacked: true } },
                     },
                 });
 
@@ -234,7 +256,11 @@
                         labels: s.status_ekonomi.map(e => e.label),
                         datasets: [{ data: s.status_ekonomi.map(e => e.total), backgroundColor: [p.gold, p.mid, p.deep] }],
                     },
-                    options: { plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } } },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } },
+                    },
                 });
 
                 this.charts.bantuan = new Chart(document.getElementById('chartBantuan'), {
@@ -244,7 +270,9 @@
                         datasets: [{ data: s.penerima_bantuan.map(b => b.total), backgroundColor: p.emerald, borderRadius: 4 }],
                     },
                     options: {
-                        plugins: { legend: { display: false } },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => `${ctx.parsed.y} orang` } } },
                         scales: { x: { ticks: { font: { size: 9 } } }, y: { beginAtZero: true, ticks: { precision: 0 } } },
                     },
                 });
@@ -256,7 +284,9 @@
                         datasets: [{ data: s.status_nikah.map(n => n.total), backgroundColor: p.gold, borderRadius: 4 }],
                     },
                     options: {
-                        plugins: { legend: { display: false } },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => `${ctx.parsed.y} orang` } } },
                         scales: { x: { ticks: { font: { size: 9 } } }, y: { beginAtZero: true, ticks: { precision: 0 } } },
                     },
                 });
@@ -270,7 +300,11 @@
                             backgroundColor: [p.deep, p.gold, p.light, p.emerald, p.goldLight, '#a8672a'],
                         }],
                     },
-                    options: { plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 9 } } } } },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 9 } } } },
+                    },
                 });
             },
 
