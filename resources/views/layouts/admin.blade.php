@@ -117,19 +117,44 @@
     </div>
 
     <!-- Modal konfirmasi logout -->
-    <div x-show="confirmLogout" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="absolute inset-0 bg-emerald-950/50" @click="confirmLogout = false"></div>
-        <div x-show="confirmLogout" x-transition class="relative bg-white rounded-2xl shadow-xl max-w-sm w-full p-6">
-            <div class="h-11 w-11 rounded-full bg-red-50 text-red-600 flex items-center justify-center mb-4">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+    <div x-show="confirmLogout" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4" @keydown.escape.window="confirmLogout = false">
+        <div x-show="confirmLogout" x-transition.opacity @click="confirmLogout = false" class="absolute inset-0 bg-black/50"></div>
+
+        <div x-show="confirmLogout"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm p-7">
+
+            <button type="button" @click="confirmLogout = false"
+                    class="absolute top-4 right-4 h-8 w-8 flex items-center justify-center rounded-full text-emerald-900/40 hover:text-emerald-900 hover:bg-cream-100 transition-colors cursor-pointer"
+                    aria-label="Tutup">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+
+            <div class="text-center">
+                <div class="mx-auto h-16 w-16 rounded-full bg-red-100 text-red-600 flex items-center justify-center mb-5">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+                </div>
+
+                <h3 class="font-display font-semibold text-xl text-emerald-950 mb-2">Keluar dari Panel Admin?</h3>
+                <p class="text-sm text-emerald-900/60 mb-6 leading-relaxed">Anda akan keluar dari sesi superadmin dan perlu login kembali untuk mengelola data website.</p>
             </div>
-            <h3 class="font-display font-semibold text-lg text-emerald-950 mb-1.5">Konfirmasi Logout</h3>
-            <p class="text-sm text-emerald-900/60 mb-6">Apakah Anda yakin ingin keluar dari panel admin?</p>
-            <div class="flex justify-end gap-3">
-                <button type="button" @click="confirmLogout = false" class="rounded-lg px-4 py-2 text-sm font-medium text-emerald-900/70 hover:bg-cream-100 transition">Batal</button>
-                <form method="POST" action="{{ route('logout') }}">
+
+            <div class="grid grid-cols-2 gap-3 pt-5 border-t border-emerald-900/10">
+                <button type="button" @click="confirmLogout = false"
+                        class="rounded-xl bg-cream-100 px-4 py-3 text-sm font-semibold text-emerald-900 hover:bg-cream-200 transition-colors cursor-pointer">
+                    Batal
+                </button>
+                <form method="POST" action="{{ route('logout') }}" class="contents">
                     @csrf
-                    <button type="submit" class="rounded-lg bg-red-600 hover:bg-red-700 px-4 py-2 text-sm font-medium text-white transition">Ya, Logout</button>
+                    <button type="submit"
+                            class="rounded-xl text-red-600 px-4 py-3 text-sm font-semibold  transition-colors cursor-pointer">
+                        Ya, Logout
+                    </button>
                 </form>
             </div>
         </div>
