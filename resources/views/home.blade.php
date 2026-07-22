@@ -117,7 +117,7 @@
                 <p class="text-emerald-900/50 text-sm">Belum ada data potensi desa.</p>
             @else
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @foreach ($potensi as $item)
+                    @foreach ($potensi->take(6) as $item)
                         <div class="group rounded-2xl bg-white overflow-hidden hover:shadow-xl hover:shadow-emerald-900/10 transition">
                             @if ($item->gambar)
                                 <div class="h-44 overflow-hidden">
@@ -136,6 +136,17 @@
                         </div>
                     @endforeach
                 </div>
+
+                @if ($potensi->count() > 6)
+                    <div class="mt-8 text-center">
+                        <a href="{{ route('potensi.index') }}" class="inline-flex items-center gap-2 rounded-full bg-emerald-700 hover:bg-emerald-800 text-cream-50 px-6 py-2.5 text-sm font-medium transition-colors">
+                            Lihat Semua Potensi Desa
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                    </div>
+                @endif
             @endif
         </div>
     </section>

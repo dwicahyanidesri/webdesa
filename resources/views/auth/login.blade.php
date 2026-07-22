@@ -27,15 +27,15 @@
                 <div>
                     <label class="block text-sm font-medium text-emerald-950/80 mb-1">Email</label>
                     <input type="email" name="email" value="{{ old('email') }}" required autofocus
-                           class="w-full rounded-lg border-emerald-900/20 focus:border-emerald-500 focus:ring-emerald-500 text-sm">
+                           class="form-input">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-emerald-950/80 mb-1">Kata Sandi</label>
                     <input type="password" name="password" required
-                           class="w-full rounded-lg border-emerald-900/20 focus:border-emerald-500 focus:ring-emerald-500 text-sm">
+                           class="form-input">
                 </div>
                 <label class="flex items-center gap-2 text-sm text-emerald-900/70">
-                    <input type="checkbox" name="remember" class="rounded border-emerald-900/20 text-emerald-600 focus:ring-emerald-500">
+                    <input type="checkbox" name="remember" class="form-checkbox">
                     Ingat saya
                 </label>
                 <button type="submit" class="w-full rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 font-medium">

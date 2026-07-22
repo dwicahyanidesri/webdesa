@@ -22,7 +22,7 @@
 
                 <nav class="hidden lg:flex items-center gap-1 text-sm font-medium">
                     <a href="{{ route('home') }}#profil" class="rounded-full px-3.5 py-2 text-emerald-900/80 hover:bg-emerald-900/5 hover:text-emerald-900">Profil Desa</a>
-                    <a href="{{ route('home') }}#potensi" class="rounded-full px-3.5 py-2 text-emerald-900/80 hover:bg-emerald-900/5 hover:text-emerald-900">Potensi Desa</a>
+                    <a href="{{ route('potensi.index') }}" class="rounded-full px-3.5 py-2 text-emerald-900/80 hover:bg-emerald-900/5 hover:text-emerald-900">Potensi Desa</a>
                     <a href="{{ route('home') }}#pemerintahan" class="rounded-full px-3.5 py-2 text-emerald-900/80 hover:bg-emerald-900/5 hover:text-emerald-900">Pemerintahan</a>
                     <a href="{{ route('program-kerja.index') }}" class="rounded-full px-3.5 py-2 text-emerald-900/80 hover:bg-emerald-900/5 hover:text-emerald-900">Program Kerja KKN</a>
                     <a href="{{ route('berita-acara.index') }}" class="rounded-full px-3.5 py-2 text-emerald-900/80 hover:bg-emerald-900/5 hover:text-emerald-900">Berita Acara</a>
@@ -43,7 +43,7 @@
 
             <nav x-show="open" x-cloak class="lg:hidden pb-5 flex flex-col gap-1 text-sm font-medium">
                 <a href="{{ route('home') }}#profil" class="rounded-lg px-3 py-2 hover:bg-emerald-900/5">Profil Desa</a>
-                <a href="{{ route('home') }}#potensi" class="rounded-lg px-3 py-2 hover:bg-emerald-900/5">Potensi Desa</a>
+                <a href="{{ route('potensi.index') }}" class="rounded-lg px-3 py-2 hover:bg-emerald-900/5">Potensi Desa</a>
                 <a href="{{ route('home') }}#pemerintahan" class="rounded-lg px-3 py-2 hover:bg-emerald-900/5">Pemerintahan</a>
                 <a href="{{ route('program-kerja.index') }}" class="rounded-lg px-3 py-2 hover:bg-emerald-900/5">Program Kerja KKN</a>
                 <a href="{{ route('berita-acara.index') }}" class="rounded-lg px-3 py-2 hover:bg-emerald-900/5">Berita Acara</a>
@@ -82,6 +82,7 @@
                 <p class="text-cream-50 font-medium mb-3">Jelajahi</p>
                 <ul class="space-y-2 text-cream-200/70">
                     <li><a href="{{ route('home') }}#profil" class="hover:text-cream-50">Profil Desa</a></li>
+                    <li><a href="{{ route('potensi.index') }}" class="hover:text-cream-50">Potensi Desa</a></li>
                     <li><a href="{{ route('program-kerja.index') }}" class="hover:text-cream-50">Program Kerja KKN</a></li>
                     <li><a href="{{ route('berita-acara.index') }}" class="hover:text-cream-50">Berita Acara</a></li>
                 </ul>

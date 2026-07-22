@@ -10,7 +10,7 @@ class BeritaAcaraController extends Controller
     {
         $beritaAcara = BeritaAcara::where('status', true)
             ->orderByDesc('created_at')
-            ->paginate(9);
+            ->paginate(6);
 
         return view('berita-acara.index', compact('beritaAcara'));
     }

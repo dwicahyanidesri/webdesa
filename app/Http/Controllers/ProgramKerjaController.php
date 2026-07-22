@@ -8,7 +8,7 @@ class ProgramKerjaController extends Controller
 {
     public function index()
     {
-        $programKerja = ProgramKerja::orderByDesc('tanggal_mulai')->paginate(9);
+        $programKerja = ProgramKerja::orderByDesc('tanggal_mulai')->paginate(6);
 
         return view('program-kerja.index', compact('programKerja'));
     }

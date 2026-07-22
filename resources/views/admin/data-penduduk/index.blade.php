@@ -30,7 +30,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
 
         <!-- Kolom kanan (desktop) / atas (mobile): filter -->
-        <div class="order-1 lg:order-3 lg:col-span-3">
+        <div class="order-1 lg:order-2 lg:col-span-3">
             <div class="rounded-2xl bg-emerald-950 text-cream-100 p-4 sm:p-5 lg:sticky lg:top-20">
                 <h2 class="font-display font-semibold text-gold-400 mb-5">Filter Data</h2>
 
@@ -80,22 +80,26 @@
             </div>
         </div>
 
-        <!-- Kolom kiri: sebaran per dusun -->
-        <div class="order-2 lg:order-1 lg:col-span-3">
-            <div class="rounded-2xl bg-white border border-emerald-900/10 p-4 sm:p-5 h-full flex flex-col">
-                <h2 class="font-display font-semibold text-emerald-950 mb-4">Jumlah Penduduk Sesuai Dusun</h2>
-                <div class="relative h-64 sm:h-72">
+        <!-- Kolom utama: sebaran per dusun + statistik & chart -->
+        <div class="order-2 lg:order-1 lg:col-span-9 space-y-5">
+
+            <!-- Sebaran per dusun: kartu lebar penuh agar chart tidak sempit -->
+            <div class="rounded-2xl bg-white border border-emerald-900/10 p-4 sm:p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                    <div>
+                        <h2 class="font-display font-semibold text-lg text-emerald-950">Jumlah Penduduk Sesuai Dusun</h2>
+                        <p class="text-xs text-emerald-900/50 mt-0.5">Sebaran penduduk per dusun berdasarkan filter yang dipilih</p>
+                    </div>
+                    <div class="text-left sm:text-right shrink-0">
+                        <p class="text-3xl font-display font-semibold text-emerald-950" x-text="fmt(stats?.total)">0</p>
+                        <p class="text-xs text-emerald-900/50">Total Penduduk (sesuai filter)</p>
+                    </div>
+                </div>
+                <div class="relative h-72 sm:h-80">
                     <canvas id="chartDusun"></canvas>
                 </div>
-                <div class="mt-4 pt-4 border-t border-emerald-900/10 text-right">
-                    <p class="text-2xl font-display font-semibold text-emerald-950" x-text="fmt(stats?.total)">0</p>
-                    <p class="text-xs text-emerald-900/50">Total Penduduk (sesuai filter)</p>
-                </div>
             </div>
-        </div>
 
-        <!-- Kolom tengah: statistik & chart -->
-        <div class="order-3 lg:order-2 lg:col-span-6 space-y-5">
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                 <div class="rounded-2xl bg-white border border-emerald-900/10 px-4 py-3">
                     <p class="text-xs text-emerald-900/50">Total</p>
@@ -213,7 +217,7 @@
                     type: 'bar',
                     data: {
                         labels: s.per_dusun.map(d => d.label),
-                        datasets: [{ data: s.per_dusun.map(d => d.total), backgroundColor: p.emerald, borderRadius: 6, hoverBackgroundColor: p.gold }],
+                        datasets: [{ data: s.per_dusun.map(d => d.total), backgroundColor: p.emerald, borderRadius: 8, hoverBackgroundColor: p.gold, barPercentage: 0.55, categoryPercentage: 0.7 }],
                     },
                     options: {
                         indexAxis: 'y',
@@ -224,7 +228,10 @@
                             legend: { display: false },
                             tooltip: { callbacks: { label: (ctx) => `${ctx.parsed.x} orang` } },
                         },
-                        scales: { x: { beginAtZero: true, ticks: { precision: 0 } } },
+                        scales: {
+                            x: { beginAtZero: true, ticks: { precision: 0, font: { size: 12 } }, grid: { color: 'rgba(18,48,35,0.06)' } },
+                            y: { ticks: { font: { size: 13, weight: '500' } }, grid: { display: false } },
+                        },
                     },
                 });
 

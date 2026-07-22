@@ -53,3 +53,35 @@
 .text-shadow-sm {
     text-shadow: 0 1px 3px rgb(0 0 0 / 0.35);
 }
+
+/*
+ * Form controls — border & efek visual dibuat jelas supaya pengguna langsung
+ * tahu field mana yang bisa diisi/diubah (batas terlihat, berubah saat hover,
+ * dan ada ring fokus saat aktif diketik).
+ */
+@layer components {
+    .form-input {
+        @apply w-full rounded-lg border border-emerald-900/20 bg-white px-3.5 py-2.5 text-sm text-emerald-950
+               shadow-xs transition-colors duration-150 placeholder:text-emerald-900/30
+               hover:border-emerald-900/35
+               focus:border-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-600/10;
+    }
+
+    .form-input:disabled {
+        @apply cursor-not-allowed bg-cream-100 text-emerald-900/40 hover:border-emerald-900/20;
+    }
+
+    .form-checkbox {
+        @apply h-4 w-4 rounded border-2 border-emerald-900/25 text-emerald-600 transition-colors duration-150
+               hover:border-emerald-600/60 focus:ring-4 focus:ring-emerald-600/10 focus:ring-offset-0;
+    }
+
+    .form-file {
+        @apply w-full cursor-pointer rounded-lg border border-dashed border-emerald-900/25 bg-cream-50/60 px-3.5 py-3
+               text-sm text-emerald-900/60 transition-colors duration-150
+               hover:border-emerald-600/50 hover:bg-cream-50
+               file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-emerald-600
+               file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-white
+               hover:file:bg-emerald-700;
+    }
+}

@@ -11,11 +11,11 @@
 <form method="GET" class="bg-white rounded-2xl border border-emerald-900/10 p-4 mb-5 flex flex-wrap gap-3 items-end">
     <div class="flex-1 min-w-[180px]">
         <label class="block text-xs font-medium text-emerald-900/50 mb-1">Cari Nama / NIK</label>
-        <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari..." class="w-full rounded-lg border-emerald-900/20 text-sm">
+        <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari..." class="form-input">
     </div>
     <div class="min-w-[160px]">
         <label class="block text-xs font-medium text-emerald-900/50 mb-1">Dusun</label>
-        <select name="dusun" class="w-full rounded-lg border-emerald-900/20 text-sm">
+        <select name="dusun" class="form-input">
             <option value="">Semua Dusun</option>
             @foreach ($dusunList as $d)
                 <option value="{{ $d }}" @selected(request('dusun') === $d)>{{ $d }}</option>
@@ -24,7 +24,7 @@
     </div>
     <div class="min-w-[130px]">
         <label class="block text-xs font-medium text-emerald-900/50 mb-1">RT</label>
-        <select name="rt" class="w-full rounded-lg border-emerald-900/20 text-sm">
+        <select name="rt" class="form-input">
             <option value="">Semua RT</option>
             @foreach ($rtList as $rt)
                 <option value="{{ $rt }}" @selected(request('rt') === $rt)>{{ $rt }}</option>

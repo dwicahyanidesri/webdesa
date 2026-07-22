@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProgramKerjaController as AdminProgramKerjaContro
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BeritaAcaraController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PotensiDesaController as PublicPotensiDesaController;
 use App\Http\Controllers\ProgramKerjaController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/potensi-desa', [PublicPotensiDesaController::class, 'index'])->name('potensi.index');
 Route::get('/program-kerja', [ProgramKerjaController::class, 'index'])->name('program-kerja.index');
 Route::get('/program-kerja/{program_kerja}', [ProgramKerjaController::class, 'show'])->name('program-kerja.show');
 Route::get('/berita-acara', [BeritaAcaraController::class, 'index'])->name('berita-acara.index');
