@@ -69,31 +69,56 @@
         @yield('content')
     </main>
 
-    <footer class="bg-emerald-950 text-cream-200 mt-16">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 grid sm:grid-cols-3 gap-8 text-sm">
+    <footer class="bg-emerald-950 text-cream-200 border-t border-cream-50/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 grid sm:grid-cols-3 gap-8 sm:gap-10 text-sm">
             <div>
-                <div class="flex items-center gap-2 font-display text-cream-50 mb-3">
-                    <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-700 text-cream-50 text-xs">TA</span>
+                <div class="flex items-center gap-2.5 font-display text-cream-50 mb-3">
+                    <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-700 text-cream-50 text-xs">TA</span>
                     Desa Tanjung Agung
                 </div>
                 <p class="text-cream-200/60 leading-relaxed">Website resmi profil, potensi, dan program kerja KKN Desa Tanjung Agung.</p>
             </div>
+
             <div>
-                <p class="text-cream-50 font-medium mb-3">Jelajahi</p>
-                <ul class="space-y-2 text-cream-200/70">
-                    <li><a href="{{ route('home') }}#profil" class="hover:text-cream-50">Profil Desa</a></li>
-                    <li><a href="{{ route('potensi.index') }}" class="hover:text-cream-50">Potensi Desa</a></li>
-                    <li><a href="{{ route('program-kerja.index') }}" class="hover:text-cream-50">Program Kerja KKN</a></li>
-                    <li><a href="{{ route('berita-acara.index') }}" class="hover:text-cream-50">Berita Acara</a></li>
+                <p class="text-xs uppercase tracking-wide text-gold-400 mb-3">Jelajahi</p>
+                <ul class="space-y-2.5 text-cream-200/70">
+                    <li><a href="{{ route('home') }}#profil" class="hover:text-cream-50 transition-colors">Profil Desa</a></li>
+                    <li><a href="{{ route('potensi.index') }}" class="hover:text-cream-50 transition-colors">Potensi Desa</a></li>
+                    <li><a href="{{ route('program-kerja.index') }}" class="hover:text-cream-50 transition-colors">Program Kerja KKN</a></li>
+                    <li><a href="{{ route('berita-acara.index') }}" class="hover:text-cream-50 transition-colors">Berita Acara</a></li>
                 </ul>
             </div>
+
             <div>
-                <p class="text-cream-50 font-medium mb-3">Kontak</p>
-                <p class="text-cream-200/70 leading-relaxed">Kantor Desa Tanjung Agung<br>Senin&ndash;Jumat, 08.00&ndash;15.00 WIB</p>
+                <p class="text-xs uppercase tracking-wide text-gold-400 mb-3">Kontak</p>
+                <ul class="space-y-2.5 text-cream-200/70">
+                    <li class="flex items-start gap-2.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mt-0.5 shrink-0 text-gold-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        <span class="leading-relaxed">{{ $footerProfil->alamat_kantor ?? 'Kantor Desa Tanjung Agung' }}</span>
+                    </li>
+                    @if ($footerProfil?->no_telepon)
+                        <li class="flex items-center gap-2.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-gold-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.517l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                            <a href="tel:{{ $footerProfil->no_telepon }}" class="hover:text-cream-50 transition-colors">{{ $footerProfil->no_telepon }}</a>
+                        </li>
+                    @endif
+                    @if ($footerProfil?->email)
+                        <li class="flex items-center gap-2.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-gold-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                            <a href="mailto:{{ $footerProfil->email }}" class="hover:text-cream-50 transition-colors">{{ $footerProfil->email }}</a>
+                        </li>
+                    @endif
+                    @if ($footerProfil?->jam_pelayanan)
+                        <li class="flex items-center gap-2.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-gold-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <span>{{ $footerProfil->jam_pelayanan }}</span>
+                        </li>
+                    @endif
+                </ul>
             </div>
         </div>
         <div class="border-t border-cream-50/10">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 text-xs text-cream-200/50 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 text-xs text-cream-200/50 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
                 <p>&copy; {{ date('Y') }} Pemerintah Desa Tanjung Agung. Seluruh hak cipta dilindungi.</p>
                 <p>Dibangun untuk mendukung transparansi &amp; program kerja KKN.</p>
             </div>
