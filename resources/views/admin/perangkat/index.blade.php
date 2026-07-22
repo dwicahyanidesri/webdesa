@@ -20,7 +20,7 @@
                 <th class="px-4 py-3 text-right">Aksi</th>
             </tr>
         </thead>
-        <tbody class="divide-y divide-gray-100">
+        <tbody class="divide-y divide-emerald-900/5">
             @forelse ($perangkatDesa as $item)
                 <tr>
                     <td class="px-4 py-3">
