@@ -1,0 +1,46 @@
+<div>
+    <label class="block text-sm font-medium text-emerald-950/80 mb-1">Nama Program</label>
+    <input type="text" name="nama_program" value="{{ old('nama_program', $item->nama_program ?? '') }}" class="w-full rounded-lg border-emerald-900/20 text-sm" required>
+</div>
+<div>
+    <label class="block text-sm font-medium text-emerald-950/80 mb-1">Bidang</label>
+    <input type="text" name="bidang" value="{{ old('bidang', $item->bidang ?? '') }}" placeholder="Pendidikan, Kesehatan, Ekonomi, Lingkungan, dll." class="w-full rounded-lg border-emerald-900/20 text-sm">
+</div>
+<div>
+    <label class="block text-sm font-medium text-emerald-950/80 mb-1">Penanggung Jawab</label>
+    <input type="text" name="penanggung_jawab" value="{{ old('penanggung_jawab', $item->penanggung_jawab ?? '') }}" class="w-full rounded-lg border-emerald-900/20 text-sm">
+</div>
+<div class="grid grid-cols-2 gap-4">
+    <div>
+        <label class="block text-sm font-medium text-emerald-950/80 mb-1">Tanggal Mulai</label>
+        <input type="date" name="tanggal_mulai" value="{{ old('tanggal_mulai', isset($item) && $item->tanggal_mulai ? $item->tanggal_mulai->format('Y-m-d') : '') }}" class="w-full rounded-lg border-emerald-900/20 text-sm">
+    </div>
+    <div>
+        <label class="block text-sm font-medium text-emerald-950/80 mb-1">Tanggal Selesai</label>
+        <input type="date" name="tanggal_selesai" value="{{ old('tanggal_selesai', isset($item) && $item->tanggal_selesai ? $item->tanggal_selesai->format('Y-m-d') : '') }}" class="w-full rounded-lg border-emerald-900/20 text-sm">
+    </div>
+</div>
+<div>
+    <label class="block text-sm font-medium text-emerald-950/80 mb-1">Status</label>
+    @php $status = old('status', $item->status ?? 'belum_mulai'); @endphp
+    <select name="status" class="w-full rounded-lg border-emerald-900/20 text-sm">
+        <option value="belum_mulai" @selected($status === 'belum_mulai')>Belum Mulai</option>
+        <option value="berjalan" @selected($status === 'berjalan')>Berjalan</option>
+        <option value="selesai" @selected($status === 'selesai')>Selesai</option>
+    </select>
+</div>
+<div>
+    <label class="block text-sm font-medium text-emerald-950/80 mb-1">Lokasi</label>
+    <input type="text" name="lokasi" value="{{ old('lokasi', $item->lokasi ?? '') }}" class="w-full rounded-lg border-emerald-900/20 text-sm">
+</div>
+<div>
+    <label class="block text-sm font-medium text-emerald-950/80 mb-1">Deskripsi</label>
+    <textarea name="deskripsi" rows="4" class="w-full rounded-lg border-emerald-900/20 text-sm">{{ old('deskripsi', $item->deskripsi ?? '') }}</textarea>
+</div>
+<div>
+    <label class="block text-sm font-medium text-emerald-950/80 mb-1">Dokumentasi (gambar)</label>
+    @if (isset($item) && $item->dokumentasi)
+        <img src="{{ asset('storage/'.$item->dokumentasi) }}" class="h-16 mb-2 rounded">
+    @endif
+    <input type="file" name="dokumentasi" accept="image/*" class="w-full text-sm">
+</div>

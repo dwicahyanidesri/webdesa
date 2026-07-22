@@ -6,4 +6,50 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Fraunces', ui-serif, Georgia, serif;
+
+    /*
+     * Palet "Tanjung Agung" — hijau tua khas pemerintahan desa + krem hangat + aksen amber.
+     * Di-override lewat nama skala emerald bawaan Tailwind supaya seluruh utility
+     * (bg-emerald-*, text-emerald-*, border-emerald-*) otomatis memakai warna ini
+     * tanpa perlu mengganti setiap class di semua file blade.
+     */
+    --color-emerald-50: #eef4f0;
+    --color-emerald-100: #d9e8de;
+    --color-emerald-200: #b3d1bd;
+    --color-emerald-300: #83b393;
+    --color-emerald-400: #55916d;
+    --color-emerald-500: #35704f;
+    --color-emerald-600: #1f4f3a;
+    --color-emerald-700: #173f2e;
+    --color-emerald-800: #123023;
+    --color-emerald-900: #0c211a;
+    --color-emerald-950: #071510;
+
+    --color-cream-50: #fdfbf6;
+    --color-cream-100: #f8f2e5;
+    --color-cream-200: #f0e6cf;
+    --color-cream-300: #e6d6ae;
+    --color-cream: #f8f2e5;
+
+    --color-gold-400: #dda13a;
+    --color-gold-500: #c9821f;
+    --color-gold-600: #b06f18;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+.font-display {
+    font-family: var(--font-display);
+}
+
+.bg-hero-image {
+    background-size: cover;
+    background-position: center;
+}
+
+.text-shadow-sm {
+    text-shadow: 0 1px 3px rgb(0 0 0 / 0.35);
 }
