@@ -7,17 +7,29 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-cream-100 text-emerald-950 antialiased" x-data="{ sidebar: false }">
+<body class="bg-cream-100 text-emerald-950 antialiased"
+      x-data="{
+          sidebarOpen: localStorage.getItem('admin_sidebar_open') !== '0',
+          confirmLogout: false,
+          toggleSidebar() {
+              this.sidebarOpen = !this.sidebarOpen;
+              localStorage.setItem('admin_sidebar_open', this.sidebarOpen ? '1' : '0');
+          },
+      }">
 
     <div class="min-h-screen flex">
+        <!-- Backdrop (mobile only, saat sidebar terbuka) -->
+        <div x-show="sidebarOpen" x-cloak @click="toggleSidebar()" class="fixed inset-0 z-20 bg-emerald-950/40 md:hidden" x-transition.opacity></div>
+
         <!-- Sidebar -->
-        <aside :class="sidebar ? 'translate-x-0' : '-translate-x-full'"
-               class="fixed z-30 inset-y-0 left-0 w-64 bg-emerald-950 text-cream-100 transform transition-transform md:translate-x-0 md:static md:flex md:flex-col">
+        <aside x-show="sidebarOpen" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
+               x-transition:leave="transition ease-in duration-150" x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
+               class="fixed z-30 inset-y-0 left-0 w-64 bg-emerald-950 text-cream-100 flex flex-col md:static shrink-0">
             <div class="h-16 flex items-center gap-2.5 px-5 border-b border-cream-50/10 font-display font-semibold text-cream-50">
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gold-500 text-emerald-950 text-sm">TA</span>
+                <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold-500 text-emerald-950 text-sm">TA</span>
                 Admin Desa
             </div>
-            <nav class="flex-1 px-3 py-5 space-y-6 text-sm overflow-y-auto">
+            <nav class="flex-1 px-3 py-5 space-y-6 text-sm overflow-y-auto overflow-x-hidden">
                 <div class="space-y-1">
                     <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2.5 rounded-lg px-3 py-2 transition {{ request()->routeIs('admin.dashboard') ? 'bg-emerald-800 text-cream-50' : 'text-cream-200/70 hover:bg-cream-50/5 hover:text-cream-50' }}">
                         <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
@@ -65,22 +77,22 @@
                 </a>
             </nav>
             <div class="p-3 border-t border-cream-50/10">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button class="w-full rounded-lg bg-cream-50/5 hover:bg-cream-50/10 px-3 py-2.5 text-sm text-left text-cream-100 transition">Logout ({{ auth()->user()->name }})</button>
-                </form>
+                <button type="button" title="Logout" @click="confirmLogout = true"
+                        class="w-full flex items-center gap-2.5 rounded-lg bg-cream-50/5 hover:bg-cream-50/10 px-3 py-2.5 text-sm text-left text-cream-100 transition">
+                    <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 5v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                    <span>Logout ({{ auth()->user()->name }})</span>
+                </button>
             </div>
         </aside>
 
         <div class="flex-1 flex flex-col min-w-0">
-            <header class="h-16 bg-cream-50/80 backdrop-blur-md border-b border-emerald-900/10 flex items-center justify-between px-4 md:px-6 sticky top-0 z-20">
-                <button class="md:hidden p-2 text-emerald-900" @click="sidebar = !sidebar">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <header class="h-16 bg-cream-50/80 backdrop-blur-md border-b border-emerald-900/10 flex items-center gap-3 px-4 md:px-6 sticky top-0 z-20">
+                <button type="button" title="Buka/tutup menu" @click="toggleSidebar()" class="p-2 -ml-2 rounded-lg text-emerald-900 hover:bg-emerald-900/5 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-                <h1 class="font-display font-semibold text-lg text-emerald-950">@yield('title', 'Dashboard')</h1>
-                <div></div>
+                <h1 class="font-display font-semibold text-lg text-emerald-950 flex-1">@yield('title', 'Dashboard')</h1>
             </header>
 
             <main class="flex-1 p-4 md:p-6">
@@ -101,6 +113,25 @@
 
                 @yield('content')
             </main>
+        </div>
+    </div>
+
+    <!-- Modal konfirmasi logout -->
+    <div x-show="confirmLogout" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-emerald-950/50" @click="confirmLogout = false"></div>
+        <div x-show="confirmLogout" x-transition class="relative bg-white rounded-2xl shadow-xl max-w-sm w-full p-6">
+            <div class="h-11 w-11 rounded-full bg-red-50 text-red-600 flex items-center justify-center mb-4">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+            </div>
+            <h3 class="font-display font-semibold text-lg text-emerald-950 mb-1.5">Konfirmasi Logout</h3>
+            <p class="text-sm text-emerald-900/60 mb-6">Apakah Anda yakin ingin keluar dari panel admin?</p>
+            <div class="flex justify-end gap-3">
+                <button type="button" @click="confirmLogout = false" class="rounded-lg px-4 py-2 text-sm font-medium text-emerald-900/70 hover:bg-cream-100 transition">Batal</button>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="rounded-lg bg-red-600 hover:bg-red-700 px-4 py-2 text-sm font-medium text-white transition">Ya, Logout</button>
+                </form>
+            </div>
         </div>
     </div>
 

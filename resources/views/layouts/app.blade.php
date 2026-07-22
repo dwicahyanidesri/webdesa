@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-cream-50 text-emerald-950 antialiased">
+<body class="bg-cream-50 text-emerald-950 antialiased min-h-screen flex flex-col">
 
     <header class="bg-cream-50/90 backdrop-blur-md border-b border-emerald-900/10 sticky top-0 z-40" x-data="{ open: false }">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,7 +57,7 @@
         </div>
     </header>
 
-    <main>
+    <main class="flex-1">
         @if (session('success'))
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
                 <div class="rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-3 text-sm">

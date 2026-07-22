@@ -11,8 +11,9 @@ php artisan serve
 
 
 Login superadmin: 
-admin@tanjungagung.desa.id /
- TanjungAgung#2026 
+admin@tanjungagung.desa.id
+
+TanjungAgung#2026 
  
  (ganti setelah login pertama, bisa lewat php artisan tinker).
 
