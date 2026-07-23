@@ -85,3 +85,106 @@
                hover:file:bg-emerald-700;
     }
 }
+
+/*
+ * Bagan struktur organisasi (org-chart) — dibangun dari <ul>/<li> yang bisa
+ * bercabang tak terbatas (multi-level, banyak anak per node) via
+ * PerangkatDesa::parent_id. Teknik CSS-table classic: setiap <li> jadi sel
+ * tabel sehingga baris saudara (siblings) sejajar otomatis, garis
+ * penghubung digambar lewat pseudo-element supaya SEMUA node tetap terlihat
+ * saling terhubung walau strukturnya kompleks/tidak simetris.
+ */
+.org-chart,
+.org-chart ul,
+.org-chart li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.org-chart {
+    display: table;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.org-chart ul {
+    display: table;
+    width: 100%;
+}
+
+.org-chart li {
+    display: table-cell;
+    padding: 1.75rem 0.6rem 0;
+    vertical-align: top;
+}
+
+/* garis horizontal antar-saudara pada satu baris */
+.org-chart li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    outline: solid 1px rgba(21, 56, 15, 0.18);
+}
+.org-chart li:first-child::before {
+    left: 50%;
+}
+.org-chart li:last-child::before {
+    right: 50%;
+}
+
+/* baris paling atas (root) tidak butuh garis di atasnya */
+.org-chart > li::before {
+    outline: none;
+}
+
+.org-node {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+/* stub vertikal: dari node turun ke garis horizontal saudaranya */
+.org-node::before {
+    content: '';
+    position: absolute;
+    top: -1.75rem;
+    left: 50%;
+    height: 1.75rem;
+    outline: solid 1px rgba(21, 56, 15, 0.18);
+}
+.org-chart > li > .org-node::before {
+    outline: none;
+}
+
+/* stub vertikal: dari sebuah node turun ke baris anak-anaknya */
+.org-chart ul::before {
+    content: '';
+    position: absolute;
+    top: -1.75rem;
+    left: 50%;
+    height: 1.75rem;
+    outline: solid 1px rgba(21, 56, 15, 0.18);
+}
+
+/* bagan bisa digeser/di-drag horizontal (mouse & sentuhan), scrollbar disembunyikan
+   agar terasa seperti carousel modern, terutama di layar mobile yang sempit. */
+.org-chart-scroller {
+    -webkit-overflow-scrolling: touch;
+}
+.no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.cursor-grab {
+    cursor: grab;
+}
+.cursor-grabbing,
+.cursor-grabbing * {
+    cursor: grabbing !important;
+}

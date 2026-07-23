@@ -134,35 +134,39 @@
             <p class="text-emerald-900/60">Bagan susunan perangkat Desa Tanjung Agung.</p>
         </div>
 
-        @if ($perangkat->isEmpty())
+        @if ($perangkatTree->isEmpty())
             <p class="text-emerald-900/50 text-sm">Belum ada data perangkat desa.</p>
         @else
-            <div class="flex flex-col items-center gap-2">
-                @foreach ([1, 2, 3] as $level)
-                    @if (isset($perangkat[$level]))
-                        <div class="w-full flex flex-col items-center">
-                            @if ($level > 1)
-                                <div class="h-10 w-px bg-emerald-900/15"></div>
-                            @endif
-                            <div class="flex flex-wrap justify-center gap-5">
-                                @foreach ($perangkat[$level] as $orang)
-                                    <div class="w-48 rounded-2xl border border-emerald-900/10 bg-white p-5 text-center hover:border-emerald-700/30 transition">
-                                        @if ($orang->foto)
-                                            <img src="{{ asset('storage/'.$orang->foto) }}" alt="{{ $orang->nama }}" class="h-16 w-16 rounded-full object-cover mx-auto mb-3 ring-4 ring-cream-100">
-                                        @else
-                                            <div class="h-16 w-16 rounded-full bg-emerald-100 text-emerald-700 mx-auto mb-3 flex items-center justify-center font-display font-semibold ring-4 ring-cream-100">
-                                                {{ strtoupper(substr($orang->nama, 0, 1)) }}
-                                            </div>
-                                        @endif
-                                        <p class="font-medium text-sm text-emerald-950">{{ $orang->nama }}</p>
-                                        <p class="text-xs text-emerald-900/50 mt-0.5">{{ $orang->jabatan }}</p>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <div class="h-10 w-px bg-emerald-900/15"></div>
-                        </div>
-                    @endif
-                @endforeach
+            <div
+                class="org-chart-scroller relative -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto no-scrollbar pb-2"
+                x-data="{
+                    down: false, startX: 0, scrollLeft: 0, dragged: false,
+                    start(e) {
+                        this.down = true; this.dragged = false;
+                        this.$el.classList.add('cursor-grabbing');
+                        this.startX = e.pageX - this.$el.offsetLeft;
+                        this.scrollLeft = this.$el.scrollLeft;
+                    },
+                    move(e) {
+                        if (!this.down) return;
+                        const walk = e.pageX - this.$el.offsetLeft - this.startX;
+                        if (Math.abs(walk) > 4) this.dragged = true;
+                        this.$el.scrollLeft = this.scrollLeft - walk;
+                    },
+                    end() { this.down = false; this.$el.classList.remove('cursor-grabbing'); },
+                }"
+                @mousedown="start"
+                @mousemove="move"
+                @mouseup="end"
+                @mouseleave="end"
+                @click.capture="if (dragged) { $event.stopPropagation(); dragged = false; }"
+            >
+                <ul class="org-chart cursor-grab select-none">
+                    @foreach ($perangkatTree as $root)
+                        @include('partials.org-node', ['node' => $root])
+                    @endforeach
+                </ul>
+                <p class="sm:hidden text-center text-[11px] text-emerald-900/40 mt-2">← geser untuk lihat semua →</p>
             </div>
         @endif
     </section>

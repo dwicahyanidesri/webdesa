@@ -7,6 +7,17 @@
     <input type="text" name="jabatan" value="{{ old('jabatan', $item->jabatan ?? '') }}" class="form-input" required>
 </div>
 <div>
+    <label class="block text-sm font-medium text-emerald-950/80 mb-1">Atasan (Terhubung ke)</label>
+    <p class="text-xs text-emerald-900/40 mb-1.5">Pilih siapa yang menjadi atasan langsung orang ini pada bagan. Kosongkan jika ini jabatan paling atas (mis. Kepala Desa / BPK).</p>
+    @php $parentId = old('parent_id', $item->parent_id ?? ''); @endphp
+    <select name="parent_id" class="form-input">
+        <option value="">— Tidak ada (paling atas) —</option>
+        @foreach ($parentOptions as $opt)
+            <option value="{{ $opt->id }}" @selected((string) $parentId === (string) $opt->id)>{{ $opt->nama }} ({{ $opt->jabatan }})</option>
+        @endforeach
+    </select>
+</div>
+<div>
     <label class="block text-sm font-medium text-emerald-950/80 mb-1">Tingkat pada Bagan</label>
     @php $level = old('level', $item->level ?? 2); @endphp
     <select name="level" class="form-input">

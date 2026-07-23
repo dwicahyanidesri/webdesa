@@ -24,9 +24,13 @@
         <!-- Sidebar -->
         <aside x-show="sidebarOpen" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0"
                x-transition:leave="transition ease-in duration-150" x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
-               class="fixed z-30 inset-y-0 left-0 w-64 bg-emerald-950 text-cream-100 flex flex-col md:static shrink-0">
+               class="fixed z-30 inset-y-0 left-0 w-64 bg-emerald-950 text-cream-100 flex flex-col md:sticky md:top-0 md:h-screen shrink-0">
             <div class="h-16 flex items-center gap-2.5 px-5 border-b border-cream-50/10 font-display font-semibold text-cream-50">
-                <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold-500 text-emerald-950 text-sm">TA</span>
+                @if ($profilGlobal?->logo)
+                    <img src="{{ asset('storage/'.$profilGlobal->logo) }}" alt="Logo Desa" class="h-8 w-8 shrink-0 rounded-full object-cover">
+                @else
+                    <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gold-500 text-emerald-950 text-sm">TA</span>
+                @endif
                 Admin Desa
             </div>
             <nav class="flex-1 px-3 py-5 space-y-6 text-sm overflow-y-auto overflow-x-hidden">

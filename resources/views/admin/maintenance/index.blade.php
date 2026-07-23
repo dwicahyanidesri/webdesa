@@ -82,8 +82,7 @@
                             </div>
                         @endif
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-emerald-950 truncate">{{ basename($file['path']) }}</p>
-                            <p class="text-xs text-emerald-900/40 truncate">{{ $file['path'] }}</p>
+                            <p class="text-sm font-medium text-emerald-950 truncate">{{ $file['path'] }}</p>
                             <p class="text-xs text-emerald-900/40 mt-0.5">{{ $file['size_formatted'] }} &middot; {{ $file['modified_formatted'] }}</p>
                             <span class="inline-flex items-center gap-1.5 mt-1.5 rounded-full px-2 py-0.5 text-[11px] font-medium {{ $file['is_used'] ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700' }}">
                                 <span class="h-1.5 w-1.5 rounded-full {{ $file['is_used'] ? 'bg-emerald-600' : 'bg-red-600' }}"></span>
@@ -122,16 +121,13 @@
                         @foreach ($files as $file)
                             <tr>
                                 <td class="px-4 py-3">
-                                    <div class="flex items-center gap-3">
-                                        @if ($file['is_image'])
-                                            <img src="{{ asset('storage/'.$file['path']) }}" class="h-10 w-10 rounded-lg object-cover shrink-0 border border-emerald-900/10">
-                                        @else
-                                            <div class="h-10 w-10 rounded-lg bg-cream-100 flex items-center justify-center shrink-0 text-emerald-900/30">
-                                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
-                                            </div>
-                                        @endif
-                                        <span class="font-medium text-emerald-950">{{ basename($file['path']) }}</span>
-                                    </div>
+                                    @if ($file['is_image'])
+                                        <img src="{{ asset('storage/'.$file['path']) }}" class="h-10 w-10 rounded-lg object-cover border border-emerald-900/10">
+                                    @else
+                                        <div class="h-10 w-10 rounded-lg bg-cream-100 flex items-center justify-center text-emerald-900/30">
+                                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                                        </div>
+                                    @endif
                                 </td>
                                 <td class="px-4 py-3 text-emerald-900/50">{{ $file['path'] }}</td>
                                 <td class="px-4 py-3 text-emerald-900/70">{{ $file['size_formatted'] }}</td>

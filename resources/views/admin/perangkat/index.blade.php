@@ -30,6 +30,7 @@
                     <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1.5 text-xs text-emerald-900/50">
                         <span class="rounded-full bg-cream-100 px-2 py-0.5">{{ $levelLabel[$item->level] ?? $item->level }}</span>
                         <span>Urutan: {{ $item->urutan }}</span>
+                        <span>Atasan: {{ $item->parent->nama ?? '—' }}</span>
                     </div>
                     <div class="flex gap-4 mt-2 text-sm">
                         <a href="{{ route('admin.perangkat.edit', $item) }}" class="text-emerald-700 font-medium hover:underline">Edit</a>
@@ -51,6 +52,7 @@
                     <th class="px-4 py-3 text-left">Foto</th>
                     <th class="px-4 py-3 text-left">Nama</th>
                     <th class="px-4 py-3 text-left">Jabatan</th>
+                    <th class="px-4 py-3 text-left">Atasan</th>
                     <th class="px-4 py-3 text-left">Tingkat</th>
                     <th class="px-4 py-3 text-left">Urutan</th>
                     <th class="px-4 py-3 text-right">Aksi</th>
@@ -68,6 +70,7 @@
                         </td>
                         <td class="px-4 py-3 font-medium">{{ $item->nama }}</td>
                         <td class="px-4 py-3 text-emerald-900/70">{{ $item->jabatan }}</td>
+                        <td class="px-4 py-3 text-emerald-900/70">{{ $item->parent->nama ?? '—' }}</td>
                         <td class="px-4 py-3 text-emerald-900/70">{{ $levelLabel[$item->level] ?? $item->level }}</td>
                         <td class="px-4 py-3 text-emerald-900/70">{{ $item->urutan }}</td>
                         <td class="px-4 py-3">

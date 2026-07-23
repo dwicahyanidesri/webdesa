@@ -13,15 +13,15 @@
 
     <!-- Kartu ringkasan utama -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="rounded-2xl bg-emerald-950 px-4 py-4 sm:px-6 sm:py-5">
+        <div class="rounded-2xl bg-emerald-700 px-4 py-4 sm:px-6 sm:py-5">
             <p class="text-2xl sm:text-3xl font-display font-semibold text-gold-400" x-text="fmt(stats?.jumlah_anak)">0</p>
             <p class="text-xs uppercase tracking-wide text-cream-200/60 mt-1">Jumlah Anak</p>
         </div>
-        <div class="rounded-2xl bg-emerald-950 px-4 py-4 sm:px-6 sm:py-5">
+        <div class="rounded-2xl bg-emerald-700 px-4 py-4 sm:px-6 sm:py-5">
             <p class="text-2xl sm:text-3xl font-display font-semibold text-gold-400" x-text="fmt(stats?.jumlah_ibu_rumah_tangga)">0</p>
             <p class="text-xs uppercase tracking-wide text-cream-200/60 mt-1">Jumlah Ibu Rumah Tangga</p>
         </div>
-        <div class="rounded-2xl bg-emerald-950 px-4 py-4 sm:px-6 sm:py-5">
+        <div class="rounded-2xl bg-emerald-700 px-4 py-4 sm:px-6 sm:py-5">
             <p class="text-2xl sm:text-3xl font-display font-semibold text-gold-400" x-text="fmt(stats?.jumlah_kepala_keluarga)">0</p>
             <p class="text-xs uppercase tracking-wide text-cream-200/60 mt-1">Jumlah Kepala Keluarga</p>
         </div>
@@ -31,7 +31,7 @@
 
         <!-- Kolom kanan (desktop) / atas (mobile): filter -->
         <div class="order-1 lg:order-2 lg:col-span-3">
-            <div class="rounded-2xl bg-emerald-950 text-cream-100 p-4 sm:p-5 lg:sticky lg:top-20">
+            <div class="rounded-2xl bg-emerald-700 text-cream-100 p-4 sm:p-5 lg:sticky lg:top-20">
                 <h2 class="font-display font-semibold text-gold-400 mb-5">Filter Data</h2>
 
                 <div class="mb-6">
@@ -189,12 +189,12 @@
             charts: {},
 
             palette: {
-                deep: '#123023',
-                emerald: '#1f4f3a',
-                mid: '#55916d',
-                light: '#83b393',
-                gold: '#c9821f',
-                goldLight: '#dda13a',
+                deep: '#1e5016',
+                emerald: '#2f8321',
+                mid: '#5cbb3e',
+                light: '#8ed36e',
+                gold: '#cc8a1f',
+                goldLight: '#e2a83e',
             },
 
             fmt(n) {
@@ -348,7 +348,7 @@
                         labels: s.pendidikan.map(x => x.label),
                         datasets: [{
                             data: s.pendidikan.map(x => x.total),
-                            backgroundColor: [p.deep, p.gold, p.light, p.emerald, p.goldLight, '#a8672a'],
+                            backgroundColor: [p.deep, p.gold, p.light, p.emerald, p.goldLight, '#a86f17'],
                         }],
                     },
                     options: {

@@ -43,3 +43,17 @@ download mariaDB dan migrasi ke mariaDB
 upload_max_filesize dari PHP adalah 2Mb
 
 http://127.0.0.1:8000/admin/profil
+
+buat bagannya itu lebih kompleks seperti 
+
+BPK-> Kades-> sekretaris desa
+sekdes-> umkm
+sekdes-> mikro
+sekdres-> makro
+kades-> petugas 1
+kades-> petugas 2
+kades-> petugas 3
+
+tapi tetap saling terhubung
+
+

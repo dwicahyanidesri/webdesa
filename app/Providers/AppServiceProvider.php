@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Header & footer di layouts.app butuh data profil desa (logo desa) di semua
         // halaman publik, bukan cuma Beranda, jadi disediakan lewat composer.
-        View::composer('layouts.app', function ($view) {
+        View::composer(['layouts.app', 'layouts.admin'], function ($view) {
             $view->with('profilGlobal', ProfilDesa::first());
         });
     }
