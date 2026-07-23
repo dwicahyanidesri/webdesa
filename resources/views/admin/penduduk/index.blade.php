@@ -4,8 +4,13 @@
 
 @section('content')
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-    <p class="text-sm text-emerald-900/50">Kelola data penduduk satu per satu. Data ini menjadi sumber Dashboard Statistik.</p>
-    <a href="{{ route('admin.penduduk.create') }}" class="rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 text-sm font-medium whitespace-nowrap">+ Tambah Penduduk</a>
+    <p class="text-sm text-emerald-900/50">Kelola data penduduk. Data ini menjadi sumber Dashboard Statistik.</p>
+    <div class="flex flex-col sm:flex-row gap-2 shrink-0">
+        <a href="{{ route('admin.penduduk.import') }}" class="rounded-lg bg-white border border-emerald-700 text-emerald-700 hover:bg-emerald-50 px-4 py-2 text-sm font-medium whitespace-nowrap text-center transition-colors">
+            Import Excel
+        </a>
+        <a href="{{ route('admin.penduduk.create') }}" class="rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 text-sm font-medium whitespace-nowrap text-center transition-colors">+ Tambah Penduduk</a>
+    </div>
 </div>
 
 <form method="GET" class="bg-white rounded-2xl border border-emerald-900/10 p-4 mb-5 flex flex-wrap gap-3 items-end">

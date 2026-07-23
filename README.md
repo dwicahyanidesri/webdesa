@@ -9,6 +9,9 @@ php artisan storage:link
 npm run build
 php artisan serve
 
+;extension=gd pada c/php/php.ini
+
+
 
 Login superadmin: 
 admin@tanjungagung.desa.id

@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\BeritaAcaraController as AdminBeritaAcaraController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DataPendudukController;
+use App\Http\Controllers\Admin\MaintenanceController;
 use App\Http\Controllers\Admin\PendudukController;
+use App\Http\Controllers\Admin\PendudukImportController;
 use App\Http\Controllers\Admin\PerangkatDesaController;
 use App\Http\Controllers\Admin\PotensiDesaController;
 use App\Http\Controllers\Admin\ProfilDesaController;
@@ -60,5 +62,16 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/data-penduduk', [DataPendudukController::class, 'index'])->name('data-penduduk.index');
     Route::get('/data-penduduk/stats', [DataPendudukController::class, 'stats'])->name('data-penduduk.stats');
 
+    Route::get('/penduduk/import', [PendudukImportController::class, 'create'])->name('penduduk.import');
+    Route::post('/penduduk/import', [PendudukImportController::class, 'store'])->name('penduduk.import.store');
+    Route::get('/penduduk/import/template', [PendudukImportController::class, 'template'])->name('penduduk.import.template');
+
     Route::resource('penduduk', PendudukController::class)->except(['show']);
+
+    Route::prefix('pembersihan')->name('maintenance.')->group(function () {
+        Route::get('/', [MaintenanceController::class, 'index'])->name('index');
+        Route::delete('/file', [MaintenanceController::class, 'destroyFile'])->name('destroy-file');
+        Route::delete('/orphans', [MaintenanceController::class, 'destroyOrphans'])->name('destroy-orphans');
+        Route::post('/cache', [MaintenanceController::class, 'clearCache'])->name('clear-cache');
+    });
 });
