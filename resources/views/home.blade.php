@@ -193,7 +193,7 @@
     </section>
 
     <!-- Kontak -->
-    <section id="kontak" class="bg-emerald-950 text-white scroll-mt-20">
+    <!-- <section id="kontak" class="bg-emerald-950 text-white scroll-mt-20">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
             <div class="max-w-xl mb-12">
                 <p class="uppercase tracking-[0.2em] text-gold-400 text-xs font-medium mb-3">Hubungi Kami</p>
@@ -250,6 +250,6 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
 @endsection

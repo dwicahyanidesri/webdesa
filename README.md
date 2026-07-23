@@ -19,3 +19,9 @@ TanjungAgung#2026
 
 
  php artisan migrate --seed
+
+
+C:\Users\ACER\Desktop\tanjungagungtp\resources\views\home.blade.php
+hubungi kami
+
+        "laravel/framework": "^13.8",
