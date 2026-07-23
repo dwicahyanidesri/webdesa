@@ -59,7 +59,7 @@
         </div>
 
         <div class="grid lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-2 space-y-5">
+            <div class="lg:col-span-3 space-y-5">
                 <div class="bg-white rounded-2xl border border-emerald-900/10 p-5 sm:p-7">
                     <h3 class="font-display font-semibold text-lg text-emerald-950 mb-3">Sejarah Desa</h3>
                     <p class="text-emerald-900/70 leading-relaxed whitespace-pre-line">{{ $profil->sejarah ?? '-' }}</p>
@@ -76,28 +76,6 @@
                 </div>
             </div>
 
-            <div class="space-y-5">
-                <div class="bg-cream-100 rounded-2xl p-6">
-                    <dl class="space-y-4 text-sm">
-                        <div class="flex justify-between gap-4">
-                            <dt class="text-emerald-900/50">Luas Wilayah</dt>
-                            <dd class="font-medium text-emerald-950 text-right">{{ $profil->luas_wilayah ?? '-' }}</dd>
-                        </div>
-                        <div class="flex justify-between gap-4">
-                            <dt class="text-emerald-900/50">Jumlah Penduduk</dt>
-                            <dd class="font-medium text-emerald-950 text-right">{{ $profil->jumlah_penduduk ?? '-' }}</dd>
-                        </div>
-                        <div class="flex justify-between gap-4">
-                            <dt class="text-emerald-900/50">Kecamatan</dt>
-                            <dd class="font-medium text-emerald-950 text-right">{{ $profil->kecamatan ?? '-' }}</dd>
-                        </div>
-                        <div class="flex justify-between gap-4">
-                            <dt class="text-emerald-900/50">Kabupaten</dt>
-                            <dd class="font-medium text-emerald-950 text-right">{{ $profil->kabupaten ?? '-' }}</dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
         </div>
     </section>
 
