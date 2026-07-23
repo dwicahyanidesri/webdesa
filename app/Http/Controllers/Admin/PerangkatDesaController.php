@@ -24,6 +24,10 @@ class PerangkatDesaController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        if ($redirect = $this->rejectFailedUploads($request, ['foto'])) {
+            return $redirect;
+        }
+
         $data = $this->validated($request);
 
         if ($request->hasFile('foto')) {
@@ -42,6 +46,10 @@ class PerangkatDesaController extends Controller
 
     public function update(Request $request, PerangkatDesa $perangkat): RedirectResponse
     {
+        if ($redirect = $this->rejectFailedUploads($request, ['foto'])) {
+            return $redirect;
+        }
+
         $data = $this->validated($request);
 
         if ($request->hasFile('foto')) {
@@ -73,7 +81,7 @@ class PerangkatDesaController extends Controller
             'jabatan' => ['required', 'string', 'max:255'],
             'level' => ['required', 'integer', 'in:1,2,3'],
             'urutan' => ['nullable', 'integer', 'min:0'],
-            'foto' => ['nullable', 'image', 'max:2048'],
-        ]);
+            'foto' => ['nullable', 'image', 'max:8192'],
+        ], $this->maxFileSizeMessages(['foto']));
     }
 }

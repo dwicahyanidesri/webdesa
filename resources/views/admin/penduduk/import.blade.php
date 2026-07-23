@@ -92,7 +92,7 @@
     <!-- Form upload -->
     <div class="rounded-2xl bg-white border border-emerald-900/10 p-5 sm:p-6">
         <h2 class="font-display font-semibold text-emerald-950 mb-1">Upload Berkas</h2>
-        <p class="text-sm text-emerald-900/50 mb-5">Format yang didukung: .xlsx, .xls, .csv (maks. 20MB). Baris pertama harus berisi judul kolom.</p>
+        <p class="text-sm text-emerald-900/50 mb-5">Format yang didukung: .xlsx, .xls, .csv (maks. 2MB). Baris pertama harus berisi judul kolom.</p>
 
         <form method="POST" action="{{ route('admin.penduduk.import.store') }}" enctype="multipart/form-data" class="space-y-4">
             @csrf

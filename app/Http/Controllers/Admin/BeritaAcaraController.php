@@ -24,6 +24,10 @@ class BeritaAcaraController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        if ($redirect = $this->rejectFailedUploads($request, ['gambar'])) {
+            return $redirect;
+        }
+
         $data = $this->validated($request);
         $data['slug'] = BeritaAcara::generateUniqueSlug($data['judul']);
         $data['status'] = $request->boolean('status');
@@ -44,6 +48,10 @@ class BeritaAcaraController extends Controller
 
     public function update(Request $request, BeritaAcara $berita_acara): RedirectResponse
     {
+        if ($redirect = $this->rejectFailedUploads($request, ['gambar'])) {
+            return $redirect;
+        }
+
         $data = $this->validated($request);
         $data['status'] = $request->boolean('status');
 
@@ -86,7 +94,7 @@ class BeritaAcaraController extends Controller
             'judul' => ['required', 'string', 'max:255'],
             'penulis' => ['nullable', 'string', 'max:255'],
             'isi' => ['required', 'string'],
-            'gambar' => ['nullable', 'image', 'max:2048'],
-        ]);
+            'gambar' => ['nullable', 'image', 'max:8192'],
+        ], $this->maxFileSizeMessages(['gambar']));
     }
 }

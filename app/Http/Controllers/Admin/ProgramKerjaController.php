@@ -24,6 +24,10 @@ class ProgramKerjaController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        if ($redirect = $this->rejectFailedUploads($request, ['dokumentasi'])) {
+            return $redirect;
+        }
+
         $data = $this->validated($request);
 
         if ($request->hasFile('dokumentasi')) {
@@ -42,6 +46,10 @@ class ProgramKerjaController extends Controller
 
     public function update(Request $request, ProgramKerja $program_kerja): RedirectResponse
     {
+        if ($redirect = $this->rejectFailedUploads($request, ['dokumentasi'])) {
+            return $redirect;
+        }
+
         $data = $this->validated($request);
 
         if ($request->hasFile('dokumentasi')) {
@@ -77,7 +85,7 @@ class ProgramKerjaController extends Controller
             'status' => ['required', 'in:belum_mulai,berjalan,selesai'],
             'lokasi' => ['nullable', 'string', 'max:255'],
             'deskripsi' => ['nullable', 'string'],
-            'dokumentasi' => ['nullable', 'image', 'max:2048'],
-        ]);
+            'dokumentasi' => ['nullable', 'image', 'max:8192'],
+        ], $this->maxFileSizeMessages(['dokumentasi']));
     }
 }

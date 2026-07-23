@@ -37,3 +37,9 @@ itu di sambungin ke footer saja jadi nomor telponnya jadi gini contohnya
 
 nomor telpon (azizi) gitu biar enak ganti-ganti isi footernya
 
+
+download mariaDB dan migrasi ke mariaDB
+
+upload_max_filesize dari PHP adalah 2Mb
+
+http://127.0.0.1:8000/admin/profil

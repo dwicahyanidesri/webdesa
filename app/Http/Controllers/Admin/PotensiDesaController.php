@@ -24,6 +24,10 @@ class PotensiDesaController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        if ($redirect = $this->rejectFailedUploads($request, ['gambar'])) {
+            return $redirect;
+        }
+
         $data = $this->validated($request);
 
         if ($request->hasFile('gambar')) {
@@ -42,6 +46,10 @@ class PotensiDesaController extends Controller
 
     public function update(Request $request, PotensiDesa $potensi): RedirectResponse
     {
+        if ($redirect = $this->rejectFailedUploads($request, ['gambar'])) {
+            return $redirect;
+        }
+
         $data = $this->validated($request);
 
         if ($request->hasFile('gambar')) {
@@ -73,7 +81,7 @@ class PotensiDesaController extends Controller
             'kategori' => ['nullable', 'string', 'max:255'],
             'deskripsi' => ['nullable', 'string'],
             'urutan' => ['nullable', 'integer', 'min:0'],
-            'gambar' => ['nullable', 'image', 'max:2048'],
-        ]);
+            'gambar' => ['nullable', 'image', 'max:8192'],
+        ], $this->maxFileSizeMessages(['gambar']));
     }
 }

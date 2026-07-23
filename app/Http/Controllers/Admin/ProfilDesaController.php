@@ -19,6 +19,10 @@ class ProfilDesaController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
+        if ($redirect = $this->rejectFailedUploads($request, ['logo', 'foto_hero'])) {
+            return $redirect;
+        }
+
         $profil = ProfilDesa::firstOrCreate(['id' => 1], ['nama_desa' => 'Tanjung Agung']);
 
         $data = $request->validate([
@@ -38,9 +42,9 @@ class ProfilDesaController extends Controller
             'alamat_kantor' => ['nullable', 'string'],
             'jam_pelayanan' => ['nullable', 'string', 'max:255'],
             'link_maps' => ['nullable', 'string'],
-            'logo' => ['nullable', 'image', 'max:2048'],
-            'foto_hero' => ['nullable', 'image', 'max:4096'],
-        ]);
+            'logo' => ['nullable', 'image', 'max:8192'],
+            'foto_hero' => ['nullable', 'image', 'max:8192'],
+        ], $this->maxFileSizeMessages(['logo', 'foto_hero']));
 
         if ($request->hasFile('logo')) {
             if ($profil->logo) {

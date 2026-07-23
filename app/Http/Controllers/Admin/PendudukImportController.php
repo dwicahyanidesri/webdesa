@@ -18,9 +18,13 @@ class PendudukImportController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        if ($redirect = $this->rejectFailedUploads($request, ['file'])) {
+            return $redirect;
+        }
+
         $request->validate([
-            'file' => ['required', 'file', 'mimes:xlsx,xls,csv', 'max:20480'],
-        ]);
+            'file' => ['required', 'file', 'mimes:xlsx,xls,csv', 'max:8192'],
+        ], $this->maxFileSizeMessages(['file']));
 
         // Import ribuan baris bisa makan waktu lebih dari batas default PHP, jangan sampai terpotong.
         set_time_limit(0);
