@@ -32,7 +32,15 @@
         <!-- Kolom kanan (desktop) / atas (mobile): filter -->
         <div class="order-1 lg:order-2 lg:col-span-3">
             <div class="rounded-2xl bg-emerald-700 text-cream-100 p-4 sm:p-5 lg:sticky lg:top-20">
-                <h2 class="font-display font-semibold text-gold-400 mb-5">Filter Data</h2>
+                <div class="flex items-center justify-between mb-5">
+                    <h2 class="font-display font-semibold text-gold-400">Filter Data</h2>
+                    <button type="button" @click="refreshData()" :disabled="loading"
+                            class="inline-flex items-center gap-1.5 text-[11px] text-white hover:text-cream-300 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                            title="Muat ulang data terbaru dari server (lewati cache)">
+                        <svg class="h-3.5 w-3.5" :class="loading && 'animate-spin'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                        Segarkan
+                    </button>
+                </div>
 
                 <div class="mb-6">
                     <p class="text-[11px] uppercase tracking-widest text-cream-200/40 mb-2">Rukun Tetangga (RT)</p>
@@ -188,6 +196,37 @@
             abortController: null,
             charts: {},
 
+            // Cache di sessionStorage per kombinasi filter, supaya saat halaman ini
+            // dibuka lagi (atau filter yang sama dipilih ulang) datanya langsung
+            // tampil tanpa request ulang ke server. Otomatis kedaluwarsa setelah
+            // beberapa menit supaya data tetap tidak terlalu basi.
+            cachePrefix: 'dataPendudukDashboard:v1:',
+            cacheTtlMs: 15 * 60 * 1000,
+
+            cacheKey(filters) {
+                return this.cachePrefix + JSON.stringify(filters);
+            },
+
+            readCache(filters) {
+                try {
+                    const raw = sessionStorage.getItem(this.cacheKey(filters));
+                    if (!raw) return null;
+                    const entry = JSON.parse(raw);
+                    if (!entry || (Date.now() - entry.ts) > this.cacheTtlMs) return null;
+                    return entry.data;
+                } catch (error) {
+                    return null;
+                }
+            },
+
+            writeCache(filters, data) {
+                try {
+                    sessionStorage.setItem(this.cacheKey(filters), JSON.stringify({ ts: Date.now(), data }));
+                } catch (error) {
+                    // Abaikan (mis. storage penuh/nonaktif) — dashboard tetap jalan tanpa cache.
+                }
+            },
+
             palette: {
                 deep: '#1e5016',
                 emerald: '#2f8321',
@@ -218,7 +257,17 @@
                 this.updateCharts();
             },
 
-            async fetchStats() {
+            async fetchStats(forceRefresh = false) {
+                const filtersSnapshot = { ...this.filters };
+
+                if (!forceRefresh) {
+                    const cached = this.readCache(filtersSnapshot);
+                    if (cached) {
+                        this.stats = cached;
+                        return;
+                    }
+                }
+
                 // Batalkan permintaan sebelumnya yang belum selesai supaya tidak ada
                 // dua respons yang saling menimpa (penyebab dashboard terasa lambat/nge-crash).
                 if (this.abortController) {
@@ -229,7 +278,7 @@
                 const myRequestId = ++this.requestId;
 
                 this.loading = true;
-                const params = new URLSearchParams(this.filters);
+                const params = new URLSearchParams(filtersSnapshot);
 
                 try {
                     const res = await fetch(`{{ route('admin.data-penduduk.stats') }}?${params.toString()}`, {
@@ -241,6 +290,7 @@
                     // Abaikan respons yang sudah usang (bukan permintaan terakhir).
                     if (myRequestId === this.requestId) {
                         this.stats = data;
+                        this.writeCache(filtersSnapshot, data);
                     }
                 } catch (error) {
                     if (error.name !== 'AbortError') {
@@ -251,6 +301,11 @@
                         this.loading = false;
                     }
                 }
+            },
+
+            async refreshData() {
+                await this.fetchStats(true);
+                this.updateCharts();
             },
 
             buildCharts() {
