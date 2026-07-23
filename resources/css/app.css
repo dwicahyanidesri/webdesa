@@ -9,32 +9,32 @@
     --font-display: 'Fraunces', ui-serif, Georgia, serif;
 
     /*
-     * Palet "Tanjung Agung" — hijau tua khas pemerintahan desa + krem hangat + aksen amber.
-     * Di-override lewat nama skala emerald bawaan Tailwind supaya seluruh utility
-     * (bg-emerald-*, text-emerald-*, border-emerald-*) otomatis memakai warna ini
-     * tanpa perlu mengganti setiap class di semua file blade.
+     * Palet "Tanjung Agung" — hijau asri khas persawahan & perbukitan desa + krem
+     * hangat + aksen keemasan padi. Di-override lewat nama skala emerald bawaan
+     * Tailwind supaya seluruh utility (bg-emerald-*, text-emerald-*, border-emerald-*)
+     * otomatis memakai warna ini tanpa perlu mengganti setiap class di semua file blade.
      */
-    --color-emerald-50: #eef4f0;
-    --color-emerald-100: #d9e8de;
-    --color-emerald-200: #b3d1bd;
-    --color-emerald-300: #83b393;
-    --color-emerald-400: #55916d;
-    --color-emerald-500: #35704f;
-    --color-emerald-600: #1f4f3a;
-    --color-emerald-700: #173f2e;
-    --color-emerald-800: #123023;
-    --color-emerald-900: #0c211a;
-    --color-emerald-950: #071510;
+    --color-emerald-50: #f0f9ec;
+    --color-emerald-100: #ddf2d1;
+    --color-emerald-200: #b9e6a2;
+    --color-emerald-300: #8ed36e;
+    --color-emerald-400: #5cbb3e;
+    --color-emerald-500: #3f9e2b;
+    --color-emerald-600: #2f8321;
+    --color-emerald-700: #27691c;
+    --color-emerald-800: #1e5016;
+    --color-emerald-900: #15380f;
+    --color-emerald-950: #0b2209;
 
-    --color-cream-50: #fdfbf6;
-    --color-cream-100: #f8f2e5;
-    --color-cream-200: #f0e6cf;
-    --color-cream-300: #e6d6ae;
-    --color-cream: #f8f2e5;
+    --color-cream-50: #fdfbf5;
+    --color-cream-100: #f8f1e2;
+    --color-cream-200: #f0e3c8;
+    --color-cream-300: #e6cf9f;
+    --color-cream: #f8f1e2;
 
-    --color-gold-400: #dda13a;
-    --color-gold-500: #c9821f;
-    --color-gold-600: #b06f18;
+    --color-gold-400: #e2a83e;
+    --color-gold-500: #cc8a1f;
+    --color-gold-600: #a86f17;
 }
 
 [x-cloak] {
