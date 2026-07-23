@@ -3,21 +3,21 @@
 namespace App\Models;
 
 use Database\Factories\PendudukFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable([
-    'nama', 'nik', 'jenis_kelamin', 'tanggal_lahir', 'dusun', 'rt',
-    'status_keluarga', 'status_ekonomi', 'status_nikah', 'pendidikan_terakhir',
-    'status_sekolah', 'penerima_bantuan', 'alamat',
-])]
 class Penduduk extends Model
 {
     /** @use HasFactory<PendudukFactory> */
     use HasFactory;
 
     protected $table = 'penduduk';
+
+    protected $fillable = [
+        'nama', 'nik', 'jenis_kelamin', 'tanggal_lahir', 'dusun', 'rt',
+        'status_keluarga', 'status_ekonomi', 'status_nikah', 'pendidikan_terakhir',
+        'status_sekolah', 'penerima_bantuan', 'alamat',
+    ];
 
     public const DUSUN = ['Sinar Maju', 'Tanjung Agung', 'Cikoak', 'Pematang'];
 

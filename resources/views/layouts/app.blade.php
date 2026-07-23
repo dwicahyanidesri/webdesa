@@ -13,7 +13,11 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20">
                 <a href="{{ route('home') }}" class="flex items-center gap-2.5 sm:gap-3 font-display font-semibold text-emerald-900 min-w-0">
-                    <span class="inline-flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-emerald-700 text-cream-50 text-sm">TA</span>
+                    @if ($profilGlobal?->logo)
+                        <img src="{{ asset('storage/'.$profilGlobal->logo) }}" alt="Logo Desa Tanjung Agung" class="h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-full object-cover">
+                    @else
+                        <span class="inline-flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-full bg-emerald-700 text-cream-50 text-sm">TA</span>
+                    @endif
                     <span class="leading-tight min-w-0 truncate">
                         <span class="block text-sm sm:text-base truncate">Desa Tanjung Agung</span>
                         <span class="hidden sm:block text-[11px] font-sans font-normal tracking-wide text-emerald-700/70">Website Resmi Pemerintah Desa</span>
@@ -69,11 +73,15 @@
         @yield('content')
     </main>
 
-    <footer class="bg-emerald-950 text-cream-200 border-t border-cream-50/10">
+    <footer id="kontak" class="bg-emerald-950 text-cream-200 border-t border-cream-50/10 scroll-mt-20">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 grid sm:grid-cols-3 gap-8 sm:gap-10 text-sm">
             <div>
                 <div class="flex items-center gap-2.5 font-display text-cream-50 mb-3">
-                    <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-700 text-cream-50 text-xs">TA</span>
+                    @if ($profilGlobal?->logo)
+                        <img src="{{ asset('storage/'.$profilGlobal->logo) }}" alt="Logo Desa Tanjung Agung" class="h-9 w-9 shrink-0 rounded-full object-cover">
+                    @else
+                        <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-700 text-cream-50 text-xs">TA</span>
+                    @endif
                     Desa Tanjung Agung
                 </div>
                 <p class="text-cream-200/60 leading-relaxed">Website resmi profil, potensi, dan program kerja KKN Desa Tanjung Agung.</p>
@@ -94,24 +102,30 @@
                 <ul class="space-y-2.5 text-cream-200/70">
                     <li class="flex items-start gap-2.5">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mt-0.5 shrink-0 text-gold-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                        <span class="leading-relaxed">{{ $footerProfil->alamat_kantor ?? 'Kantor Desa Tanjung Agung' }}</span>
+                        @if ($profilGlobal?->link_maps)
+                            <a href="{{ $profilGlobal->link_maps }}" target="_blank" rel="noopener" class="leading-relaxed hover:text-cream-50 transition-colors underline decoration-cream-200/30 hover:decoration-cream-50">
+                                {{ $profilGlobal->alamat_kantor ?? 'Kantor Kelurahan Desa Tanjung Agung' }}
+                            </a>
+                        @else
+                            <span class="leading-relaxed">{{ $profilGlobal->alamat_kantor ?? 'Kantor Kelurahan Desa Tanjung Agung' }}</span>
+                        @endif
                     </li>
-                    @if ($footerProfil?->no_telepon)
+                    @if ($profilGlobal?->no_telepon)
                         <li class="flex items-center gap-2.5">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-gold-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.517l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                            <a href="tel:{{ $footerProfil->no_telepon }}" class="hover:text-cream-50 transition-colors">{{ $footerProfil->no_telepon }}</a>
+                            <a href="tel:{{ $profilGlobal->no_telepon }}" class="hover:text-cream-50 transition-colors">{{ $profilGlobal->no_telepon }} ({{ $profilGlobal->nama_kontak }})</a>
                         </li>
                     @endif
-                    @if ($footerProfil?->email)
+                    @if ($profilGlobal?->email)
                         <li class="flex items-center gap-2.5">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-gold-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                            <a href="mailto:{{ $footerProfil->email }}" class="hover:text-cream-50 transition-colors">{{ $footerProfil->email }}</a>
+                            <a href="mailto:{{ $profilGlobal->email }}" class="hover:text-cream-50 transition-colors">{{ $profilGlobal->email }}</a>
                         </li>
                     @endif
-                    @if ($footerProfil?->jam_pelayanan)
+                    @if ($profilGlobal?->jam_pelayanan)
                         <li class="flex items-center gap-2.5">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-gold-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                            <span>{{ $footerProfil->jam_pelayanan }}</span>
+                            <span>{{ $profilGlobal->jam_pelayanan }}</span>
                         </li>
                     @endif
                 </ul>

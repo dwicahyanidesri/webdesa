@@ -21,10 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Footer di layouts.app butuh data profil desa (alamat, telepon, jam pelayanan)
-        // supaya isinya selalu sinkron dengan data yang diisi admin, bukan teks statis.
+        // Header & footer di layouts.app butuh data profil desa (logo desa) di semua
+        // halaman publik, bukan cuma Beranda, jadi disediakan lewat composer.
         View::composer('layouts.app', function ($view) {
-            $view->with('footerProfil', ProfilDesa::first());
+            $view->with('profilGlobal', ProfilDesa::first());
         });
     }
 }

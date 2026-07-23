@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable([
-    'nama_program', 'bidang', 'penanggung_jawab', 'tanggal_mulai', 'tanggal_selesai',
-    'status', 'lokasi', 'deskripsi', 'dokumentasi',
-])]
 class ProgramKerja extends Model
 {
     protected $table = 'program_kerja';
+
+    protected $fillable = [
+        'nama_program', 'bidang', 'penanggung_jawab', 'tanggal_mulai', 'tanggal_selesai',
+        'status', 'lokasi', 'deskripsi', 'dokumentasi',
+    ];
 
     protected function casts(): array
     {

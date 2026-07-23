@@ -53,33 +53,25 @@
         </div>
     </div>
 
-    <div class="bg-white rounded-2xl border border-emerald-900/10 p-6 space-y-4">
+    <div class="bg-white rounded-2xl border border-emerald-900/10 p-6 space-y-5">
         <h2 class="font-semibold">Foto</h2>
-        <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-                <label class="block text-sm font-medium text-emerald-950/80 mb-1">Logo Desa</label>
-                @if ($profil->logo)
-                    <img src="{{ asset('storage/'.$profil->logo) }}" class="h-16 mb-2 rounded">
-                @endif
-                <input type="file" name="logo" accept="image/*" class="form-file">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-emerald-950/80 mb-1">Foto Desa</label>
-                @if ($profil->foto_desa)
-                    <img src="{{ asset('storage/'.$profil->foto_desa) }}" class="h-16 mb-2 rounded">
-                @endif
-                <input type="file" name="foto_desa" accept="image/*" class="form-file">
-            </div>
-            <div class="sm:col-span-2">
-                <label class="block text-sm font-medium text-emerald-950/80 mb-1">Foto Latar Belakang Beranda (Hero)</label>
-                <p class="text-xs text-emerald-900/40 mb-2">Gambar ini tampil sebagai latar belakang penuh di halaman utama. Jika kosong, sistem memakai gambar contoh bawaan.</p>
-                @if ($profil->foto_hero)
-                    <img src="{{ asset('storage/'.$profil->foto_hero) }}" class="h-24 w-full max-w-md object-cover mb-2 rounded-lg">
-                @else
-                    <img src="{{ asset('img/kerja-kerja.jpg') }}" class="h-24 w-full max-w-md object-cover mb-2 rounded-lg opacity-70">
-                @endif
-                <input type="file" name="foto_hero" accept="image/*" class="form-file">
-            </div>
+        <div>
+            <label class="block text-sm font-medium text-emerald-950/80 mb-1">Logo Desa</label>
+            <p class="text-xs text-emerald-900/40 mb-2">Tampil di header &amp; footer website sebagai pengganti lencana singkatan "TA".</p>
+            @if ($profil->logo)
+                <img src="{{ asset('storage/'.$profil->logo) }}" class="h-16 w-16 object-cover mb-2 rounded-full border border-emerald-900/10">
+            @endif
+            <input type="file" name="logo" accept="image/*" class="form-file">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-emerald-950/80 mb-1">Foto Latar Belakang Beranda (Hero)</label>
+            <p class="text-xs text-emerald-900/40 mb-2">Gambar ini tampil sebagai latar belakang penuh di halaman utama. Jika kosong, sistem memakai gambar contoh bawaan.</p>
+            @if ($profil->foto_hero)
+                <img src="{{ asset('storage/'.$profil->foto_hero) }}" class="h-24 w-full max-w-md object-cover mb-2 rounded-lg">
+            @else
+                <img src="{{ asset('img/kerja-kerja.jpg') }}" class="h-24 w-full max-w-md object-cover mb-2 rounded-lg opacity-70">
+            @endif
+            <input type="file" name="foto_hero" accept="image/*" class="form-file">
         </div>
     </div>
 

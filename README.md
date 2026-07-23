@@ -25,3 +25,12 @@ C:\Users\ACER\Desktop\tanjungagungtp\resources\views\home.blade.php
 hubungi kami
 
         "laravel/framework": "^13.8",
+
+
+http://127.0.0.1:8000/admin/profil
+Kontak Person
+
+itu di sambungin ke footer saja jadi nomor telponnya jadi gini contohnya
+
+nomor telpon (azizi) gitu biar enak ganti-ganti isi footernya
+

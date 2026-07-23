@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-#[Fillable(['judul', 'slug', 'penulis', 'gambar', 'isi', 'status'])]
 class BeritaAcara extends Model
 {
     protected $table = 'berita_acara';
+
+    protected $fillable = ['judul', 'slug', 'penulis', 'gambar', 'isi', 'status'];
 
     protected function casts(): array
     {

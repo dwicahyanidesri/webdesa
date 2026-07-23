@@ -39,7 +39,6 @@ class ProfilDesaController extends Controller
             'jam_pelayanan' => ['nullable', 'string', 'max:255'],
             'link_maps' => ['nullable', 'string'],
             'logo' => ['nullable', 'image', 'max:2048'],
-            'foto_desa' => ['nullable', 'image', 'max:2048'],
             'foto_hero' => ['nullable', 'image', 'max:4096'],
         ]);
 
@@ -48,13 +47,6 @@ class ProfilDesaController extends Controller
                 Storage::disk('public')->delete($profil->logo);
             }
             $data['logo'] = $request->file('logo')->store('profil', 'public');
-        }
-
-        if ($request->hasFile('foto_desa')) {
-            if ($profil->foto_desa) {
-                Storage::disk('public')->delete($profil->foto_desa);
-            }
-            $data['foto_desa'] = $request->file('foto_desa')->store('profil', 'public');
         }
 
         if ($request->hasFile('foto_hero')) {
